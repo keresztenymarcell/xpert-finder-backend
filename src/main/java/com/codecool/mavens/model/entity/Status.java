@@ -1,4 +1,4 @@
-package com.codecool.mavens.entity;
+package com.codecool.mavens.model.entity;
 
 public enum Status {
     ACTIVE,

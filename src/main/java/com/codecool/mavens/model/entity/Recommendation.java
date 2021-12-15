@@ -1,4 +1,4 @@
-package com.codecool.mavens.entity;
+package com.codecool.mavens.model.entity;
 
 import lombok.Builder;
 import lombok.Data;
