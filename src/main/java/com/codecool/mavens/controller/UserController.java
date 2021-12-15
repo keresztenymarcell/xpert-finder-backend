@@ -3,6 +3,7 @@ package com.codecool.mavens.controller;
 import com.codecool.mavens.entity.User;
 import com.codecool.mavens.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,6 +22,11 @@ public class UserController {
 
     @PostMapping("/{id}")
     public String addNewUser(@RequestBody User user) {
+        return "";
+    }
+
+    @PutMapping("/{id}")
+    public String updatePersonalInfoByID(@RequestBody User user){
         return "";
     }
 }
