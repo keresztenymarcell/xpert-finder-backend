@@ -1,5 +1,6 @@
 package com.codecool.mavens.controller;
 
+import com.codecool.mavens.model.dto.RegisterForm;
 import com.codecool.mavens.model.entity.PersonalInfo;
 import com.codecool.mavens.model.entity.User;
 import com.codecool.mavens.service.UserService;
@@ -17,30 +18,34 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{id}")
-    public String getUserById(@PathVariable Long id) {
-        return "";
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserByID(id);
     }
 
-    @PostMapping("/{id}")
-    public String addNewUser(@RequestBody User user) {
-        return "";
+    @PostMapping("/new")
+    public String addNewUser(@RequestBody RegisterForm form) {
+        userService.addNewUser(form);
+        return "User added!";
     }
 
     @PutMapping("/{id}")
     public String updatePersonalInfoByID(@PathVariable Long id, @RequestBody PersonalInfo user){
+        //TODO: implement service method
         return "";
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id){
-        return "";
+        userService.deleteUser(id);
+        return "User deleted!";
+
     }
 
     @GetMapping("/search")
     public List<User> getAllExpertByProfessionAndLocation(@RequestParam(name = "location-id") Long locationID,
                                                           @RequestParam(name = "profession-id") Long professionID){
 
-        //Call the service which returns the ordered list of searched Users.
+        //TODO: Call the service which returns the ordered list of searched Users.
         return null;
     }
 
