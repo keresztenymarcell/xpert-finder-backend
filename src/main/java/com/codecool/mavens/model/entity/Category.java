@@ -1,6 +1,5 @@
 package com.codecool.mavens.model.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,19 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Profession {
+public class Category {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
-    @OneToOne
-    private Category category;
+    @OneToOne(mappedBy = "category")
+    private Profession profession;
 
     private String name;
+
+
 }
