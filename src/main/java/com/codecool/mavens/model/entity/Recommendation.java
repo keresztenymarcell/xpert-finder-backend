@@ -8,12 +8,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@Entity
+@Entity
 public class Recommendation {
 
     @Id
@@ -23,4 +24,7 @@ public class Recommendation {
     private Double rating;
 
     private String review;
+
+    @OneToOne(mappedBy = "recommendation")
+    private Assignment assignment;
 }

@@ -9,12 +9,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
+@Entity
 public class Booking {
 
     @Id
@@ -25,5 +26,8 @@ public class Booking {
 
     @NotNull
     private String content;
+
+    @OneToOne(mappedBy = "booking")
+    private Assignment assignment;
 
 }
