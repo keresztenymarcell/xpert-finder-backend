@@ -17,18 +17,18 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+//@Entity
 public class Assignment {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+/*    @OneToOne
     private User expert;
 
     @OneToOne
-    private User client;
+    private User client;*/
 
     private LocalDateTime startTime;
 

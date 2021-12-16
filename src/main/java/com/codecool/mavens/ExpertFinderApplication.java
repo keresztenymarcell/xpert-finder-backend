@@ -4,6 +4,7 @@ import com.codecool.mavens.model.entity.Location;
 import com.codecool.mavens.model.entity.PersonalInfo;
 import com.codecool.mavens.model.entity.User;
 import com.codecool.mavens.repository.UserRepository;
+import com.codecool.mavens.repository.UserRepositoryMem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,11 +23,12 @@ public class ExpertFinderApplication {
         SpringApplication.run(ExpertFinderApplication.class, args);
     }
 
+
     @Bean
     public CommandLineRunner init() {
         return args -> {
 
-            Location location = Location.builder()
+            /*Location location = Location.builder()
                     .name("Budapest")
                     .build();
 
@@ -38,6 +40,10 @@ public class ExpertFinderApplication {
 
             User user = User.builder()
                     .personalInfo(personalInfo)
+                    .registrationTime(LocalDateTime.now())
+                    .build();*/
+
+            User user = User.builder()
                     .registrationTime(LocalDateTime.now())
                     .build();
 

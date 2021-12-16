@@ -9,7 +9,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+//@Entity
 public class ExpertInfo {
 
     @Id

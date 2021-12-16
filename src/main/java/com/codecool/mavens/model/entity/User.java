@@ -14,27 +14,28 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private PersonalInfo personalInfo;
+/*    @OneToOne(cascade = CascadeType.PERSIST)
+    private PersonalInfo personalInfo;*/
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private ExpertInfo expertInfo;
+/*    @OneToOne(cascade = CascadeType.PERSIST)
+    private ExpertInfo expertInfo;*/
 
     private LocalDateTime registrationTime;
 
     private LocalDateTime lastLoginTime;
 
-    @OneToOne
+/*    @OneToOne
     private Assignment expert;
 
     @OneToOne
-    private Assignment client;
+    private Assignment client;*/
 
 
 }
