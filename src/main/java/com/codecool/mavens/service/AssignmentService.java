@@ -1,6 +1,6 @@
 package com.codecool.mavens.service;
 
-import com.codecool.mavens.model.dto.AssignmentMainInfo;
+import com.codecool.mavens.model.dto.assignment.AssignmentMainInfo;
 import com.codecool.mavens.model.dto.assignment.BookingClientIdExpertIdTitle;
 import com.codecool.mavens.model.dto.assignment.RecommendationClosingMessageAssignmentId;
 import com.codecool.mavens.model.entity.*;

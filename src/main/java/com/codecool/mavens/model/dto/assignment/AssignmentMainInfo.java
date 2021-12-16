@@ -1,4 +1,4 @@
-package com.codecool.mavens.model.dto;
+package com.codecool.mavens.model.dto.assignment;
 
 import lombok.Builder;
 import lombok.Data;
