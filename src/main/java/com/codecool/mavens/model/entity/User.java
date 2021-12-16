@@ -30,5 +30,11 @@ public class User {
 
     private LocalDateTime lastLoginTime;
 
+    @OneToOne
+    private Assignment expert;
+
+    @OneToOne
+    private Assignment client;
+
 
 }

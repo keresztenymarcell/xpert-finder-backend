@@ -23,7 +23,7 @@ public class Location {
     private PersonalInfo personalInfo;
 
     @ManyToOne
-    private Location location;
+    private ExpertInfo expertInfo;
 
     private String name;
 

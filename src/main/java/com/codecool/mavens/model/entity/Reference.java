@@ -25,5 +25,6 @@ public class Reference {
     private ExpertInfo expertInfo;
 
     private String description;
+
     private String imagePath;
 }

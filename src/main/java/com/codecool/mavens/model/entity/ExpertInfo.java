@@ -20,6 +20,7 @@ public class ExpertInfo {
     private User user;
 
     private Double rating;
+
     private int jobCount;
 
     @Singular("reference")
