@@ -1,5 +1,6 @@
 package com.codecool.mavens.service;
 
+import com.codecool.mavens.model.dto.AssignmentMainInfo;
 import com.codecool.mavens.model.dto.assignment.BookingClientIdExpertIdTitle;
 import com.codecool.mavens.model.dto.assignment.RecommendationClosingMessageAssignmentId;
 import com.codecool.mavens.model.entity.*;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -66,6 +69,20 @@ public class AssignmentService {
         closingMessage.setAssignment(assignment);
 
         assignmentRepository.save(assignment);
+    }
+
+    public List<AssignmentMainInfo> getAllAssignmentMainInfo(Long id) {
+        List<Assignment> assignments = assignmentRepository.getAllByClientEquals(id);
+        // We will use object-converter
+        List<AssignmentMainInfo> result = new ArrayList<>();
+        for (Assignment assignment : assignments) {
+            result.add(AssignmentMainInfo.builder()
+                    .startTime(assignment.getStartTime())
+                    .endTime(assignment.getEndTime())
+                    .title(assignment.getTitle())
+                    .build());
+        }
+        return result;
     }
 
     // Add Review to Assignment and finish it
