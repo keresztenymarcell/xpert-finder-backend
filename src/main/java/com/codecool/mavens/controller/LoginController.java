@@ -16,10 +16,15 @@ public class LoginController {
     UserService userService;
 
     @PostMapping()
-    public void authenticateUser(@RequestBody UserLoginData data){
-        userService.authenticateUser(data);
+    public String authenticateUser(@RequestBody UserLoginData data){
+        String response;
+        if(userService.authenticateUser(data)){
+            response = "User logged in!";
+        }
+        else{
+            response = "Invalid username or password!";
+        }
 
-
-
+        return response;
     }
 }
