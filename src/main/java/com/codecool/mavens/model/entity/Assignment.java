@@ -1,15 +1,9 @@
 package com.codecool.mavens.model.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -17,28 +11,34 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
+@Entity
 public class Assignment {
 
     @Id
     @GeneratedValue
     private Long id;
 
-/*    @OneToOne
+    private String title;
+
+    @OneToOne
     private User expert;
 
     @OneToOne
-    private User client;*/
+    private User client;
 
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
 
-//
-//    private Recommendation recommendation;
-//
-//    private Booking booking;
-//
-//    private Set<Message> messages;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Recommendation recommendation;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Booking booking;
+
+
+    @Singular
+    @OneToMany(mappedBy = "assignment", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Message> messages;
 
 }
