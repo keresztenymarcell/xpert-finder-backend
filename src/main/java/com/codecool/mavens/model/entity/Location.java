@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@Entity
+@Entity
 public class Location {
 
 
@@ -22,8 +22,8 @@ public class Location {
     @OneToOne(mappedBy = "location")
     private PersonalInfo personalInfo;
 
-/*    @ManyToOne
-    private ExpertInfo expertInfo;*/
+    @ManyToOne
+    private ExpertInfo expertInfo;
 
     private String name;
 

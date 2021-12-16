@@ -1,8 +1,6 @@
 package com.codecool.mavens;
 
-import com.codecool.mavens.model.entity.Location;
-import com.codecool.mavens.model.entity.PersonalInfo;
-import com.codecool.mavens.model.entity.User;
+import com.codecool.mavens.model.entity.*;
 import com.codecool.mavens.repository.UserRepository;
 import com.codecool.mavens.repository.UserRepositoryMem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +41,26 @@ public class ExpertFinderApplication {
                     .registrationTime(LocalDateTime.now())
                     .build();*/
 
+
+            Location loc1 = Location.builder()
+                    .name("Zirc")
+                    .build();
+
             User user = User.builder()
                     .registrationTime(LocalDateTime.now())
+                    .personalInfo(PersonalInfo.builder()
+                            .name("Me")
+                            .location(Location.builder().name("Budapest").build())
+                            .build())
+                    .expertInfo(ExpertInfo.builder()
+                            .reference(Reference.builder()
+                                    .description("Nice job")
+                                    .build())
+                            .location(loc1)
+                            .location(Location.builder()
+                                    .name("Budpates")
+                                    .build())
+                            .build())
                     .build();
 
             userRepository.save(user);

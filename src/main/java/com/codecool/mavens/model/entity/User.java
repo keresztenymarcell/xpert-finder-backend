@@ -14,18 +14,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "user_")
 public class User {
 
     @Id
     @GeneratedValue
     private Long id;
 
-/*    @OneToOne(cascade = CascadeType.PERSIST)
-    private PersonalInfo personalInfo;*/
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private PersonalInfo personalInfo;
 
-/*    @OneToOne(cascade = CascadeType.PERSIST)
-    private ExpertInfo expertInfo;*/
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private ExpertInfo expertInfo;
 
     private LocalDateTime registrationTime;
 
