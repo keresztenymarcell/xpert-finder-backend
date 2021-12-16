@@ -1,13 +1,11 @@
 package com.codecool.mavens.model.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder
@@ -20,6 +18,8 @@ public class Assignment {
     @GeneratedValue
     private Long id;
 
+    private String title;
+
     @OneToOne
     private User expert;
 
@@ -30,12 +30,15 @@ public class Assignment {
 
     private LocalDateTime endTime;
 
-    //
-//    private Recommendation recommendation;
-//
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Recommendation recommendation;
+
     @OneToOne(cascade = CascadeType.PERSIST)
     private Booking booking;
-//
-//    private Set<Message> messages;
+
+
+    @Singular
+    @OneToMany(mappedBy = "school", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Message> messages;
 
 }
