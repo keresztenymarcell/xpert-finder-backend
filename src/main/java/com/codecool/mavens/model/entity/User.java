@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "user_")
 public class User {
 
     @Id
@@ -30,11 +31,11 @@ public class User {
 
     private LocalDateTime lastLoginTime;
 
-    @OneToOne
+/*    @OneToOne
     private Assignment expert;
 
     @OneToOne
-    private Assignment client;
+    private Assignment client;*/
 
 
 }

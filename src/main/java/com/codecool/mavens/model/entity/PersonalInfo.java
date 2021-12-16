@@ -15,7 +15,7 @@ public class PersonalInfo {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(mappedBy = "personalInfo")
+    @OneToOne(mappedBy = "personalInfo") // to User
     @EqualsAndHashCode.Exclude
     private User user;
 
