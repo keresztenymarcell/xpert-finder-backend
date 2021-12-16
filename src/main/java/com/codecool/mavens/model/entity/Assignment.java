@@ -38,7 +38,7 @@ public class Assignment {
 
 
     @Singular
-    @OneToMany(mappedBy = "school", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "assignment", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Message> messages;
 
 }
