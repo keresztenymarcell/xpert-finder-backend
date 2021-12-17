@@ -1,5 +1,6 @@
 package com.codecool.mavens.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,10 +20,12 @@ public class Location {
     @GeneratedValue
     private Long id;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "location")
     private PersonalInfo personalInfo;
 
     @ManyToOne
+    @JsonIgnore
     private ExpertInfo expertInfo;
 
     private String name;

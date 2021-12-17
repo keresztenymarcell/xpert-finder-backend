@@ -1,5 +1,6 @@
 package com.codecool.mavens.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class PersonalInfo {
 
     private String name;
 
+    @JsonIgnore
     private String password;
 
     private String email;
