@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
+@Entity
 public class Profession {
 
     @Id
