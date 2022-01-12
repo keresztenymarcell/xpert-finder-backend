@@ -4,6 +4,7 @@ package com.codecool.mavens.controller;
 import com.codecool.mavens.model.entity.Location;
 import com.codecool.mavens.service.LocationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/location")
 public class LocationController {
 
+    @Autowired
     private LocationService locationService;
 
     @CrossOrigin("*")

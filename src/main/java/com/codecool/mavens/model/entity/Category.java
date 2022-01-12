@@ -1,14 +1,9 @@
 package com.codecool.mavens.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Set;
 
 
 @Data
@@ -22,8 +17,10 @@ public class Category {
     @GeneratedValue
     private long id;
 
-    @OneToOne(mappedBy = "category")
-    private Profession profession;
+    @Transient
+    @Singular
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Profession> professions;
 
     private String name;
 
