@@ -5,12 +5,9 @@ import com.codecool.mavens.model.entity.Location;
 import com.codecool.mavens.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -20,12 +17,6 @@ public class LocationController {
 
     @Autowired
     private LocationService locationService;
-
-    @CrossOrigin("*")
-    @GetMapping("/all-trial")
-    public String getLocationsTrial(){
-        return "[{\"id\":1,\"name\":\"Budapest\"},{\"id\":2,\"name\":\"Pécs\"}]";
-    }
 
     @GetMapping("/all")
     public List<Location> getLocations(){
