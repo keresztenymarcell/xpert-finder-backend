@@ -12,11 +12,9 @@ import com.codecool.mavens.repository.PersonalInfoRepository;
 import com.codecool.mavens.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class UserService {
@@ -78,5 +76,9 @@ public class UserService {
         User user = userRepository.getById(id);
         user.getPersonalInfo().setStatus(Status.INACTIVE);
         userRepository.save(user);
+    }
+
+    public List<User> getAllUsersByLocationAndProfession(Long locationId, Long professionId) {
+        return userRepository.findAllByLocationId(locationId, professionId);
     }
 }

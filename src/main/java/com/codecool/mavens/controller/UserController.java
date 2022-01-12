@@ -54,7 +54,7 @@ public class UserController {
                                                           @RequestParam(name = "profession-id") Long professionID){
 
         //TODO: Call the service which returns the ordered list of searched Users.
-        return null;
+        return userService.getAllUsersByLocationAndProfession(locationID, professionID);
     }
 
 
