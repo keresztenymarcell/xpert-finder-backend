@@ -5,10 +5,12 @@ import com.codecool.mavens.model.entity.Profession;
 import com.codecool.mavens.service.ProfessionService;
 import jdk.jfr.Category;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,12 @@ public class ProfessionController {
     @GetMapping("/all-by-categories")
     public Map<Category, List<Profession>> getAllProfessionsByCategories(){
         return professionService.getAllByCategories();
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("/all-trial")
+    public List<String> getAllTrial(){
+        return Arrays.asList("Fodrász", "Állatorvos", "Ügyvéd");
     }
 
     @GetMapping("/all")
