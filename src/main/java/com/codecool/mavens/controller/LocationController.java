@@ -23,8 +23,8 @@ public class LocationController {
 
     @CrossOrigin("*")
     @GetMapping("/all-trial")
-    public List<String> getLocationsTrial(){
-        return Arrays.asList("Budapest", "Kecskemét", "Békéscsaba");
+    public String getLocationsTrial(){
+        return "[{\"id\":1,\"name\":\"Budapest\"},{\"id\":2,\"name\":\"Pécs\"}]";
     }
 
     @GetMapping("/all")
