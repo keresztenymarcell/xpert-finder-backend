@@ -28,12 +28,6 @@ public class ProfessionController {
         return professionService.getAllByCategories();
     }
 
-    @CrossOrigin("*")
-    @GetMapping("/all-trial")
-    public List<String> getAllTrial(){
-        return Arrays.asList("Fodrász", "Állatorvos", "Ügyvéd");
-    }
-
     @GetMapping("/all")
     public List<Profession> getAll(){
         return professionService.getAll();

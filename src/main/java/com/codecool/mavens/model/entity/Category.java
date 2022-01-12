@@ -1,5 +1,6 @@
 package com.codecool.mavens.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class Category {
     @GeneratedValue
     private long id;
 
-    @Transient
+    @JsonIgnore
     @Singular
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Profession> professions;

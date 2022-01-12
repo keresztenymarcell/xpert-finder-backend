@@ -19,7 +19,6 @@ public class Profession {
     @GeneratedValue
     private Long id;
 
-    @Transient
     @ManyToOne
     private Category category;
 
