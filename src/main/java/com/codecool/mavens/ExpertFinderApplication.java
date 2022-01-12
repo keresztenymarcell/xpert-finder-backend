@@ -50,14 +50,10 @@ public class ExpertFinderApplication {
                     .build();*/
             Category cat1 = Category.builder()
                     .name("Ház körüli munkák")
-                    .profession(Profession.builder().name("Fűnyírás").build())
-                    .profession(Profession.builder().name("Kutyasétáltatás").build())
                     .build();
 
             Category cat2 = Category.builder()
                     .name("Egészségügy")
-                    .profession(Profession.builder().name("Állatorvos").build())
-                    .profession(Profession.builder().name("Sebész").build())
                     .build();
 
             categoryRepository.save(cat1);

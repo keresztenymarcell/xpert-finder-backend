@@ -79,6 +79,7 @@ public class UserService {
     }
 
     public List<User> getAllUsersByLocationAndProfession(Long locationId, Long professionId) {
-        return userRepository.findAllByLocationId(locationId, professionId);
+        return null;
+        /*return userRepository.findAllByLocationId(locationId, professionId);*/
     }
 }

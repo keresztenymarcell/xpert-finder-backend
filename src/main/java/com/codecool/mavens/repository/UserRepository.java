@@ -10,6 +10,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     // TODO: select all from User where expert_info.professions contains professionId AND expert_info.locations contains locationId
-    @Query("")
-    List<User> findAllByLocationId(@Param("locationId") Long locationId, @Param("professionId") Long professionId);
+    /*@Query("")
+    List<User> findAllByLocationId(@Param("locationId") Long locationId, @Param("professionId") Long professionId);*/
 }
