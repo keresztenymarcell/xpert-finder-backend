@@ -5,6 +5,7 @@ import com.codecool.mavens.model.entity.PersonalInfo;
 import com.codecool.mavens.model.entity.User;
 import com.codecool.mavens.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
     @GetMapping("/{id}")
@@ -39,6 +41,12 @@ public class UserController {
         userService.deleteUser(id);
         return "User deleted!";
 
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("/search-trial")
+    public List<User> getAllExpertByProfessionAndLocationTrial(){
+        return userService.getAll();
     }
 
     @GetMapping("/search")

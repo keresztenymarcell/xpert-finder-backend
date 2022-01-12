@@ -16,6 +16,7 @@ public class PersonalInfo {
     @GeneratedValue
     private Long id;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "personalInfo") // to User
     @EqualsAndHashCode.Exclude
     private User user;

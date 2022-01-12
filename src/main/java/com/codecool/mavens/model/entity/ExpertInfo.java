@@ -1,5 +1,6 @@
 package com.codecool.mavens.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class ExpertInfo {
     @GeneratedValue
     private Long id;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "expertInfo")
     private User user;
 

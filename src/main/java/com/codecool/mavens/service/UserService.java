@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -28,6 +29,10 @@ public class UserService {
 
     @Autowired
     LocationRepository locationRepository;
+
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
 
     public User getUserByID(Long id){
         return userRepository.getById(id);
