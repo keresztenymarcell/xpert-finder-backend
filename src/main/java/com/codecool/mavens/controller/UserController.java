@@ -35,10 +35,10 @@ public class UserController {
                 "\"email\":\"tibor.trial@gmail.com\"," +
                 "\"phoneNumber\":\"222-444\"," +
                 "\"status\":\"active\"," +
-                "\"role\":\"user\", }," +
-                "\"profilePicture\":\"profile/picture.jpg\"" +
+                "\"role\":\"user\"," +
+                "\"profilePicture\":\"profile/picture.jpg\"}," +
                 "\"expertInfo\":{" +
-                "\"description\":\"I make very nice pictures of dogs.\"" +
+                "\"description\":\"I make very nice pictures of dogs.\"," +
                 "\"id\":8," +
                 "\"rating\":3," +
                 "\"jobCount\":7," +
@@ -96,7 +96,8 @@ public class UserController {
 
     @GetMapping("/search-all-trial")
     public String afsdfa() {
-        return  "[{\"id\":7," +
+        return  "[" +
+                "{\"id\":7," +
                 "\"personalInfo\":{" +
                 "\"id\":12,\"location\":{" +
                 "\"id\":13,\"name\":\"Budapest\"}," +
@@ -106,7 +107,7 @@ public class UserController {
                 "\"phoneNumber\":\"222-444\"," +
                 "\"status\":\"active\"," +
                 "\"role\":\"user\"," +
-                "\"profilePicture\":\"profile/picture.jpg\"," +
+                "\"profilePicture\":\"profile/picture.jpg\"}," +
                 "\"expertInfo\":{" +
                 "\"description\":\"I make very nice pictures of dogs.\"," +
                 "\"id\":8," +
@@ -128,8 +129,8 @@ public class UserController {
                 "{\"id\":88," +
                 "\"name\":\"Dubai\"}]}," +
                 "\"registrationTime\":\"2022-01-13T10:42:49.685216\"," +
-                "\"lastLoginTime\":\"2022-01-17T10:42:49.685216\"}}," +
-                // Second User
+                "\"lastLoginTime\":\"2022-01-17T10:42:49.685216\"}," +
+                // SEcond UsEr
                 "{\"id\":8," +
                 "\"personalInfo\":{" +
                 "\"id\":12,\"location\":{" +
@@ -140,7 +141,7 @@ public class UserController {
                 "\"phoneNumber\":\"222-444\"," +
                 "\"status\":\"active\"," +
                 "\"role\":\"user\"," +
-                "\"profilePicture\":\"profile/picture.jpg\"," +
+                "\"profilePicture\":\"profile/picture.jpg\"}," +
                 "\"expertInfo\":{" +
                 "\"description\":\"I make very nice pictures of dogs.\"," +
                 "\"id\":8," +
@@ -162,7 +163,8 @@ public class UserController {
                 "{\"id\":88," +
                 "\"name\":\"Dubai\"}]}," +
                 "\"registrationTime\":\"2022-01-13T10:42:49.685216\"," +
-                "\"lastLoginTime\":\"2022-01-17T10:42:49.685216\"}}]";
+                "\"lastLoginTime\":\"2022-01-17T10:42:49.685216\"}" +
+                "]";
     }
 
 }
