@@ -1,6 +1,7 @@
 package com.codecool.mavens.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,8 @@ public class Profession {
     private Category category;
 
     private String name;
+
+    @ManyToOne
+    @JsonIgnore
+    private ExpertInfo expertInfo;
 }

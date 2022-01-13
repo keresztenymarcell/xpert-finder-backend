@@ -24,6 +24,10 @@ public class UserController {
         return userService.getUserByID(id);
     }
 
+    @GetMapping("/trial/{id}")
+    public String getUserByIdTrial(@PathVariable Long id) {
+        return "{\"id\":7,\"personalInfo\":{\"id\":12,\"location\":{\"id\":13,\"name\":\"Budapest\"},\"username\":\"trialT\",\"name\":\"TrialTibor\",\"email\":\"tibor.trial@gmail.com\",\"phoneNumber\":\"222-444\",\"status\":\"active\",\"role\":\"user\"},\"expertInfo\":{\"id\":8,\"rating\":3,\"jobCount\":7,\"reference\":[{\"id\":89,\"description\":\"AnicedogI'vewalked\",\"imagePath\":\"random/image.jpg\"}],\"professions\":[{\"name\":\"Kutyasétáltató\",\"category\":{\"name\":\"Házkörülimunkák\",\"id\":77}}],\"locations\":[{\"id\":13,\"name\":\"Budapest\"},{\"id\":88,\"name\":\"Dubai\"}]},\"registrationTime\":\"2022-01-13T10:42:49.685216\",\"lastLoginTime\":\"2022-01-17T10:42:49.685216\"}";    }
+
     @PostMapping("/new")
     public String addNewUser(@RequestBody RegisterForm form) {
         userService.addNewUser(form);
