@@ -39,4 +39,6 @@ public class PersonalInfo {
 
     private Role role;
 
+    private String profilePicture;
+
 }

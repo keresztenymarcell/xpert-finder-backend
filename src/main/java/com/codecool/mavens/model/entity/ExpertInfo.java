@@ -25,6 +25,8 @@ public class ExpertInfo {
 
     private int jobCount;
 
+    private String description;
+
     @Singular("reference")
     @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
@@ -39,4 +41,14 @@ public class ExpertInfo {
     @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     private Set<Profession> professions;
+
+    @Singular
+    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
+    private Set<Review> reviews;
+
+    @Singular
+    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
+    private Set<Service> services;
 }
