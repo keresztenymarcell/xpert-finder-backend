@@ -1,13 +1,14 @@
 package com.codecool.mavens.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Getter
-@Setter
+
+// Getter / Setter ??
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,7 +35,7 @@ public class ExpertInfo {
     private Set<Reference> reference;
 
     @Singular
-    @ManyToMany(mappedBy = "expertInfos")
+    @ManyToMany(mappedBy = "expertInfos", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     private Set<Location> locations;
 

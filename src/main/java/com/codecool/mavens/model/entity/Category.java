@@ -21,6 +21,7 @@ public class Category {
     @JsonIgnore
     @Singular
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
     private Set<Profession> professions;
 
     private String name;

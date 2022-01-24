@@ -42,31 +42,14 @@ public class ExpertFinderApplication {
                     .build();
 
             Location location2 = Location.builder()
-                    .name("Bekecsaba")
+                    .name("Békécsaba")
                     .build();
-
-
-            Set<Location> locationSet = Set.of(location, location2);
-            locationRepository.saveAll(Arrays.asList(location, location2));
 
             PersonalInfo personalInfo = PersonalInfo.builder()
                     .email("me@gmail.com")
                     .name("Me Máté")
                     .location(location)
                     .build();
-
-            ExpertInfo expertInfo = ExpertInfo.builder()
-                    .locations(locationSet)
-                    .build();
-
-
-            User user = User.builder()
-                    .personalInfo(personalInfo)
-                    .expertInfo(expertInfo)
-                    .registrationTime(LocalDateTime.now())
-                    .build();
-
-            userRepository.save(user);
 
             Category cat1 = Category.builder()
                     .name("Ház körüli munkák")
@@ -76,7 +59,48 @@ public class ExpertFinderApplication {
                     .name("Egészségügy")
                     .build();
 
-            categoryRepository.save(cat1);
+            Profession profession2 = Profession.builder()
+                    .name("Sebész")
+                    .category(cat2)
+                    .build();
+
+            cat2.setProfessions(Set.of(profession2));
+
+            Profession profession3 = Profession.builder()
+                    .name("Fűnyírós")
+                    .category(cat1)
+                    .build();
+
+            cat1.setProfessions(Set.of(profession3));
+
+            ExpertInfo expertInfo = ExpertInfo.builder()
+                    .location(location)
+                    .location(location2)
+                    .profession(profession2)
+                    .profession(profession3)
+                    .build();
+
+
+            User user = User.builder()
+                    .personalInfo(personalInfo)
+                    .expertInfo(expertInfo)
+                    .registrationTime(LocalDateTime.now())
+                    .build();
+
+            Set<ExpertInfo> expertInfos = Set.of(expertInfo);
+
+            location.setExpertInfos(expertInfos);
+            location2.setExpertInfos(expertInfos);
+            profession2.setExpertInfos(expertInfos);
+            profession3.setExpertInfos(expertInfos);
+
+
+
+            userRepository.save(user);
+
+
+
+            /*categoryRepository.save(cat1);
             categoryRepository.save(cat2);
 
             Profession profession1 = Profession.builder()
@@ -84,15 +108,7 @@ public class ExpertFinderApplication {
                     .category(cat2)
                     .build();
 
-            Profession profession2 = Profession.builder()
-                    .name("Sebész")
-                    .category(cat2)
-                    .build();
 
-            Profession profession3 = Profession.builder()
-                    .name("Fűnyírós")
-                    .category(cat1)
-                    .build();
 
             Profession profession4 = Profession.builder()
                     .name("Kutyasétáltató")
@@ -127,7 +143,7 @@ public class ExpertFinderApplication {
 
             locationRepository.saveAll(Arrays.asList(loc1, loc2, loc3, loc4));
 
-            Set<Location> locations = Set.of(loc1, loc3);
+            Set<Location> locations = Set.of(loc1, loc3);*/
 
 //
 //            User user = User.builder()

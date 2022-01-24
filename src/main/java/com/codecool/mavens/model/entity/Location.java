@@ -1,10 +1,7 @@
 package com.codecool.mavens.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -23,17 +20,13 @@ public class Location {
 
     @JsonIgnore
     @OneToOne(mappedBy = "location")
+    @ToString.Exclude
     private PersonalInfo personalInfo;
 
-    @ManyToMany
     @JsonIgnore
+    @ManyToMany
+    @ToString.Exclude
     private Set<ExpertInfo> expertInfos;
 
     private String name;
-
-
-
-
-
-
 }

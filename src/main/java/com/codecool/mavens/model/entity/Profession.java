@@ -1,7 +1,7 @@
 package com.codecool.mavens.model.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,12 +21,12 @@ public class Profession {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Category category;
 
     private String name;
 
-    @ManyToMany
     @JsonIgnore
+    @ManyToMany
     private Set<ExpertInfo> expertInfos;
 }
