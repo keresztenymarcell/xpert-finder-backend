@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Builder
@@ -25,7 +26,7 @@ public class Profession {
 
     private String name;
 
-    @ManyToOne
+    @ManyToMany
     @JsonIgnore
-    private ExpertInfo expertInfo;
+    private Set<ExpertInfo> expertInfos;
 }

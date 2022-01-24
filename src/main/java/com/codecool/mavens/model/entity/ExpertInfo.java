@@ -6,7 +6,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,12 +34,12 @@ public class ExpertInfo {
     private Set<Reference> reference;
 
     @Singular
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToMany(mappedBy = "expertInfos")
     @EqualsAndHashCode.Exclude
     private Set<Location> locations;
 
     @Singular
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.PERSIST})
     @EqualsAndHashCode.Exclude
     private Set<Profession> professions;
 

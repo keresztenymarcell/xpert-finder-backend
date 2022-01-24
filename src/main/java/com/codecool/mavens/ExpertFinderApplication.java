@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Set;
 
 @SpringBootApplication
 public class ExpertFinderApplication {
@@ -32,11 +34,20 @@ public class ExpertFinderApplication {
 
     @Bean
     public CommandLineRunner init() {
+
         return args -> {
 
-            /*Location location = Location.builder()
+            Location location = Location.builder()
                     .name("Budapest")
                     .build();
+
+            Location location2 = Location.builder()
+                    .name("Bekecsaba")
+                    .build();
+
+
+            Set<Location> locationSet = Set.of(location, location2);
+            locationRepository.saveAll(Arrays.asList(location, location2));
 
             PersonalInfo personalInfo = PersonalInfo.builder()
                     .email("me@gmail.com")
@@ -44,10 +55,19 @@ public class ExpertFinderApplication {
                     .location(location)
                     .build();
 
+            ExpertInfo expertInfo = ExpertInfo.builder()
+                    .locations(locationSet)
+                    .build();
+
+
             User user = User.builder()
                     .personalInfo(personalInfo)
+                    .expertInfo(expertInfo)
                     .registrationTime(LocalDateTime.now())
-                    .build();*/
+                    .build();
+
+            userRepository.save(user);
+
             Category cat1 = Category.builder()
                     .name("Ház körüli munkák")
                     .build();
@@ -105,22 +125,26 @@ public class ExpertFinderApplication {
             //locationRepository.save(loc3);
             // locationRepository.save(loc4);
 
-            User user = User.builder()
-                    .registrationTime(LocalDateTime.now())
-                    .personalInfo(PersonalInfo.builder()
-                            .name("Trial Tibor")
-                            .location(loc2)
-                            .build())
-                    .expertInfo(ExpertInfo.builder()
-                            .reference(Reference.builder()
-                                    .description("Nice job")
-                                    .build())
-                            .location(loc1)
-                            .location(loc3)
-                            .build())
-                    .build();
+            locationRepository.saveAll(Arrays.asList(loc1, loc2, loc3, loc4));
 
-            userRepository.save(user);
+            Set<Location> locations = Set.of(loc1, loc3);
+
+//
+//            User user = User.builder()
+//                    .registrationTime(LocalDateTime.now())
+//                    .personalInfo(PersonalInfo.builder()
+//                            .name("Trial Tibor")
+//                            .location(loc2)
+//                            .build())
+//                    .expertInfo(ExpertInfo.builder()
+//                            .reference(Reference.builder()
+//                                    .description("Nice job")
+//                                    .build())
+//                            .locations(locations)
+//                            .build())
+//                    .build();
+
+//            userRepository.save(user);
         };
     }
 }

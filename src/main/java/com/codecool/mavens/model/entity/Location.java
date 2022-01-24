@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Builder
@@ -24,11 +25,15 @@ public class Location {
     @OneToOne(mappedBy = "location")
     private PersonalInfo personalInfo;
 
-    @ManyToOne
+    @ManyToMany
     @JsonIgnore
-    private ExpertInfo expertInfo;
+    private Set<ExpertInfo> expertInfos;
 
     private String name;
+
+
+
+
 
 
 }
