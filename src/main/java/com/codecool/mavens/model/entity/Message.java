@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class Message {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Sender sender;

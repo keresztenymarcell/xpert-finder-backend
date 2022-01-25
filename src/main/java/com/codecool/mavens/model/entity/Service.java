@@ -1,5 +1,6 @@
 package com.codecool.mavens.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 public class Service {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -21,6 +22,7 @@ public class Service {
 
     private String price;
 
+    @JsonIgnore
     @ManyToOne
     private ExpertInfo expertInfo;
 }

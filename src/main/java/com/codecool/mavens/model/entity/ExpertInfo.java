@@ -16,7 +16,7 @@ import java.util.Set;
 public class ExpertInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
@@ -49,9 +49,9 @@ public class ExpertInfo {
     @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     private Set<Review> reviews;
-//
-//    @Singular
-//    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//    @EqualsAndHashCode.Exclude
-//    private Set<Service> services;
+
+    @Singular
+    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
+    private Set<Service> services;
 }

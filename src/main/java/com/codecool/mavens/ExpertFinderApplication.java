@@ -113,6 +113,18 @@ public class ExpertFinderApplication {
                     .rating(5)
                     .build();
 
+            Service service1 = Service.builder()
+                    .name("Dog walking-30min")
+                    .price("3000Ft")
+                    .description("I walk your dog like a pro for half an hour")
+                    .build();
+
+            Service service2 = Service.builder()
+                    .name("Dog walking-60min")
+                    .price("5500Ft")
+                    .description("I walk your dog like a pro for an hour")
+                    .build();
+
             ExpertInfo expertInfo = ExpertInfo.builder()
                     .description("I am a professional dog-walker. Don't worry, you won't regret contacting me! ;)")
                     .rating(3.0)
@@ -123,6 +135,8 @@ public class ExpertFinderApplication {
                     .profession(profession2)
                     .profession(profession3)
                     .review(rev1)
+                    .service(service1)
+                    .service(service2)
                     .build();
 
 
@@ -138,6 +152,10 @@ public class ExpertFinderApplication {
 
             ref1.setExpertInfo(expertInfo);
             rev1.setExpertInfo(expertInfo);
+
+            service1.setExpertInfo(expertInfo);
+            service2.setExpertInfo(expertInfo);
+
             location.setExpertInfos(expertInfos);
             location2.setExpertInfos(expertInfos);
             profession2.setExpertInfos(expertInfos);
