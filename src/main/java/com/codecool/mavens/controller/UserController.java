@@ -58,8 +58,8 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public List<User> getAllExpertByProfessionAndLocation(@RequestParam(name = "location") Long locationID,
-                                                          @RequestParam(name = "profession") Long professionID){
+    public List<User> getAllExpertByProfessionAndLocation(@RequestParam(name = "location-id") Long locationID,
+                                                          @RequestParam(name = "profession-id") Long professionID){
         System.out.println("location Id: " + locationID + ", profession Id: " + professionID);
         //TODO: Call the service which returns the ordered list of searched Users.
         return userService.getAllUsersByLocationAndProfession(locationID, professionID);

@@ -87,7 +87,12 @@ public class UserService {
     }
 
     public List<User> getAllUsersByLocationAndProfession(Long locationId, Long professionId) {
-        return null;
+        return userRepository.findByExpertInfoNotNull().stream()
+                .filter(user -> user.getExpertInfo().getLocations().stream().anyMatch(location -> location.getId().equals(locationId)))
+                .filter(user -> user.getExpertInfo().getProfessions().stream().anyMatch(profession -> profession.getId().equals(professionId)))
+                .collect(Collectors.toList());
+
+
         /*return userRepository.findAllByLocationId(locationId, professionId);*/
     }
 }
