@@ -36,6 +36,7 @@ public class User {
 
     @Singular
     @OneToMany(mappedBy = "reviewer")
+    @EqualsAndHashCode.Exclude
     private Set<Review> reviews;
 
 /*    @OneToOne

@@ -27,6 +27,7 @@ SET row_security = off;
 --
 
 INSERT INTO public.expert_info VALUES (1, 'I am a professional dog-walker. Don''t worry, you won''t regret contacting me! ;)', 7, 3);
+INSERT INTO public.expert_info VALUES (2, 'I kill dark wisards as a profession. Also I play seeker.', 3, 4);
 
 
 --
@@ -36,6 +37,8 @@ INSERT INTO public.expert_info VALUES (1, 'I am a professional dog-walker. Don''
 INSERT INTO public.location VALUES (1, 'Miskolc');
 INSERT INTO public.location VALUES (2, 'Budapest');
 INSERT INTO public.location VALUES (3, 'Békécsaba');
+INSERT INTO public.location VALUES (4, 'Hogwarts');
+INSERT INTO public.location VALUES (5, 'Dubai');
 
 
 --
@@ -44,6 +47,8 @@ INSERT INTO public.location VALUES (3, 'Békécsaba');
 
 INSERT INTO public.personal_info VALUES (1, 'revy@gmail.com', 'Rewier Revy', '123', '12334', 'mégnincs', 0, 0, 'revyke', 1);
 INSERT INTO public.personal_info VALUES (2, 'tibor.trial@gmail.com', 'Me Máté', NULL, '222-444', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fxjmijhw09dm11.jpg&f=1&nofb=1', 0, 0, 'Mate11', 2);
+INSERT INTO public.personal_info VALUES (3, 'thechosenone@gmail.com', 'Harry Potter', 'voldemortlol', '123-5555', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimages4.fanpop.com%2Fimage%2Fphotos%2F18200000%2FHarry-in-HP6-harry-potter-18206052-1575-2100.jpg&f=1&nofb=1', 0, 0, 'potter69', 2);
+INSERT INTO public.personal_info VALUES (4, 'random@random.com', 'Random Ramona', 'hpforeva', '123-7777', NULL, 0, 0, 'ramy', 4);
 
 
 --
@@ -58,6 +63,8 @@ INSERT INTO public.personal_info VALUES (2, 'tibor.trial@gmail.com', 'Me Máté'
 
 INSERT INTO public.user_ VALUES (1, '2022-01-25 14:51:55.437099', '2022-01-25 14:51:55.436605', NULL, 1);
 INSERT INTO public.user_ VALUES (2, NULL, '2022-01-25 14:51:55.437335', 1, 2);
+INSERT INTO public.user_ VALUES (3, '2022-01-25 14:57:54', '2021-01-25 14:58:03', 2, 3);
+INSERT INTO public.user_ VALUES (4, '2022-01-25 15:12:48', '2022-01-25 15:12:51', NULL, 4);
 
 
 --
@@ -70,8 +77,9 @@ INSERT INTO public.user_ VALUES (2, NULL, '2022-01-25 14:51:55.437335', 1, 2);
 -- Data for Name: category; Type: TABLE DATA; Schema: public; Owner: csg
 --
 
-INSERT INTO public.category VALUES (1, 'Egészségügy');
-INSERT INTO public.category VALUES (2, 'Ház körüli munkák');
+INSERT INTO public.category VALUES (3, 'Wizardry');
+INSERT INTO public.category VALUES (1, 'Health');
+INSERT INTO public.category VALUES (2, 'Housework');
 
 
 --
@@ -80,6 +88,8 @@ INSERT INTO public.category VALUES (2, 'Ház körüli munkák');
 
 INSERT INTO public.location_expert_infos VALUES (2, 1);
 INSERT INTO public.location_expert_infos VALUES (3, 1);
+INSERT INTO public.location_expert_infos VALUES (4, 2);
+INSERT INTO public.location_expert_infos VALUES (5, 2);
 
 
 --
@@ -92,8 +102,10 @@ INSERT INTO public.location_expert_infos VALUES (3, 1);
 -- Data for Name: profession; Type: TABLE DATA; Schema: public; Owner: csg
 --
 
-INSERT INTO public.profession VALUES (1, 'Sebész', 1);
-INSERT INTO public.profession VALUES (2, 'Fűnyírós', 2);
+INSERT INTO public.profession VALUES (1, 'Surgeon', 1);
+INSERT INTO public.profession VALUES (2, 'Lawn Mower', 2);
+INSERT INTO public.profession VALUES (3, 'Auror', 3);
+INSERT INTO public.profession VALUES (4, 'Seeker', 3);
 
 
 --
@@ -102,6 +114,8 @@ INSERT INTO public.profession VALUES (2, 'Fűnyírós', 2);
 
 INSERT INTO public.profession_expert_infos VALUES (1, 1);
 INSERT INTO public.profession_expert_infos VALUES (2, 1);
+INSERT INTO public.profession_expert_infos VALUES (3, 2);
+INSERT INTO public.profession_expert_infos VALUES (4, 2);
 
 
 --
@@ -109,6 +123,7 @@ INSERT INTO public.profession_expert_infos VALUES (2, 1);
 --
 
 INSERT INTO public.reference VALUES (1, 'A nice dog I''ve walked', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2Fsd5TBJe8TkI%2Fhqdefault.jpg&f=1&nofb=1', 1);
+INSERT INTO public.reference VALUES (2, 'Voldemort. I killed him.', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fyt3.ggpht.com%2Fa%2FAATXAJzGRFf-wWUwwcHgRIAx3T6wl3NDgwgViC2JNA%3Ds900-c-k-c0xffffffff-no-rj-mo&f=1&nofb=1', 2);
 
 
 --
@@ -116,6 +131,7 @@ INSERT INTO public.reference VALUES (1, 'A nice dog I''ve walked', 'https://exte
 --
 
 INSERT INTO public.review VALUES (1, 'He was very nice to my dog, would recommend 10/10!!!', 5, '2022-01-25 14:51:55.437213', 1, 1);
+INSERT INTO public.review VALUES (2, 'He is my hero!!! <3 xoxo', 5, '2022-01-25 15:19:57', 2, 4);
 
 
 --
@@ -124,6 +140,8 @@ INSERT INTO public.review VALUES (1, 'He was very nice to my dog, would recommen
 
 INSERT INTO public.service VALUES (1, 'I walk your dog like a pro for half an hour', 'Dog walking-30min', '3000Ft', 1);
 INSERT INTO public.service VALUES (2, 'I walk your dog like a pro for an hour', 'Dog walking-60min', '5500Ft', 1);
+INSERT INTO public.service VALUES (3, 'Murder a Dark Wizard. Thats it.', 'Dark Wizard Murder', '89000 Ft', 2);
+INSERT INTO public.service VALUES (4, 'I can seek the snitch like a pro.', 'Professional Seeker', '100000 Ft / match', 2);
 
 
 --
