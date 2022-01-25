@@ -1,6 +1,7 @@
 package com.codecool.mavens.model.dto;
 
 import com.codecool.mavens.model.entity.ExpertInfo;
+import com.codecool.mavens.model.entity.Reference;
 import lombok.Data;
 
 import java.util.Set;
@@ -22,6 +23,8 @@ public class ExpertInfoDto {
 
     private Set<ProfessionDto> professions;
 
+    private Set<Reference> references;
+
     public ExpertInfoDto(ExpertInfo expertInfo) {
         this.id = expertInfo.getId();
         this.rating = expertInfo.getRating();
@@ -29,6 +32,7 @@ public class ExpertInfoDto {
         this.description = expertInfo.getDescription();
         this.locations = expertInfo.getLocations().stream().map(LocationDto::new).collect(Collectors.toSet());
         this.professions = expertInfo.getProfessions().stream().map(ProfessionDto::new).collect(Collectors.toSet());
+        this.references = expertInfo.getReferences();
     }
 
 }

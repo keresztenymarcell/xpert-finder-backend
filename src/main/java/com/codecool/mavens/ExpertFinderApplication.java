@@ -1,6 +1,8 @@
 package com.codecool.mavens;
 
 import com.codecool.mavens.model.entity.*;
+import com.codecool.mavens.model.types.Role;
+import com.codecool.mavens.model.types.Status;
 import com.codecool.mavens.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -48,6 +50,12 @@ public class ExpertFinderApplication {
             PersonalInfo personalInfo = PersonalInfo.builder()
                     .email("me@gmail.com")
                     .name("Me Máté")
+                    .username("Mate11")
+                    .email("tibor.trial@gmail.com")
+                    .phoneNumber("222-444")
+                    .status(Status.ACTIVE)
+                    .role(Role.USER)
+                    .profilePicture("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fxjmijhw09dm11.jpg&f=1&nofb=1")
                     .location(location)
                     .build();
 
@@ -73,7 +81,19 @@ public class ExpertFinderApplication {
 
             cat1.setProfessions(Set.of(profession3));
 
+
+            Reference ref1 = Reference.builder()
+                    .description("A nice dog I've walked")
+                    .imagePath("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2Fsd5TBJe8TkI%2Fhqdefault.jpg&f=1&nofb=1")
+                    .build();
+
+
+
             ExpertInfo expertInfo = ExpertInfo.builder()
+                    .description("I am a professional dog-walker. Don't worry, you won't regret contacting me! ;)")
+                    .rating(3.0)
+                    .jobCount(7)
+                    .reference(ref1)
                     .location(location)
                     .location(location2)
                     .profession(profession2)
@@ -89,6 +109,9 @@ public class ExpertFinderApplication {
 
             Set<ExpertInfo> expertInfos = Set.of(expertInfo);
 
+
+
+            ref1.setExpertInfo(expertInfo);
             location.setExpertInfos(expertInfos);
             location2.setExpertInfos(expertInfos);
             profession2.setExpertInfos(expertInfos);
