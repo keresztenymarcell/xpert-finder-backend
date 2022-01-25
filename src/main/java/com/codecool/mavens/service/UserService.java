@@ -1,7 +1,9 @@
 package com.codecool.mavens.service;
 
+import com.codecool.mavens.model.dto.LocationDto;
 import com.codecool.mavens.model.dto.RegisterForm;
 import com.codecool.mavens.model.dto.UserLoginData;
+import com.codecool.mavens.model.dto.ExpertInfoDto;
 import com.codecool.mavens.model.entity.Location;
 import com.codecool.mavens.model.entity.PersonalInfo;
 import com.codecool.mavens.model.types.Status;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class UserService {
@@ -33,6 +37,10 @@ public class UserService {
 
     public User getUserByID(Long id){
         return userRepository.getById(id);
+    }
+
+    public ExpertInfoDto getExpertInfo(Long id){
+        return  new ExpertInfoDto(userRepository.getById(id).getExpertInfo());
     }
 
     public void addNewUser(RegisterForm form){

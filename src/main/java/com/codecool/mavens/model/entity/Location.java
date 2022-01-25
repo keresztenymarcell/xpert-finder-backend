@@ -21,11 +21,13 @@ public class Location {
     @JsonIgnore
     @OneToMany(mappedBy = "location")
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<PersonalInfo> personalInfos;
 
     @JsonIgnore
     @ManyToMany
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<ExpertInfo> expertInfos;
 
     private String name;
