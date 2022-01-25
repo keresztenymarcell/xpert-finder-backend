@@ -50,6 +50,7 @@ public class ExpertInfo {
     @EqualsAndHashCode.Exclude
     private Set<Review> reviews;
 
+
     @Singular
     @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude

@@ -23,7 +23,6 @@ public class PersonalInfo {
     @EqualsAndHashCode.Exclude
     private User user;
 
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Location location;
 

@@ -28,8 +28,8 @@ public class UserService {
     @Autowired
     LocationRepository locationRepository;
 
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<ExpertCardDto> getAll() {
+        return userRepository.findByExpertInfoNotNull().stream().map(ExpertCardDto::new).collect(Collectors.toList());
     }
 
     public User getUserByID(Long id){
