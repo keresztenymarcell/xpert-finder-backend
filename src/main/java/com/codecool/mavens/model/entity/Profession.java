@@ -1,13 +1,14 @@
 package com.codecool.mavens.model.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Builder
@@ -17,15 +18,15 @@ import javax.persistence.*;
 public class Profession {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Category category;
 
     private String name;
 
-    @ManyToOne
     @JsonIgnore
-    private ExpertInfo expertInfo;
+    @ManyToMany
+    private Set<ExpertInfo> expertInfos;
 }

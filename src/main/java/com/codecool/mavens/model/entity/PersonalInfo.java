@@ -1,5 +1,7 @@
 package com.codecool.mavens.model.entity;
 
+import com.codecool.mavens.model.types.Role;
+import com.codecool.mavens.model.types.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -13,7 +15,7 @@ import javax.persistence.*;
 public class PersonalInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
@@ -21,7 +23,7 @@ public class PersonalInfo {
     @EqualsAndHashCode.Exclude
     private User user;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Location location;
 
     private String username;

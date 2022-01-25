@@ -1,11 +1,9 @@
 package com.codecool.mavens.service;
 
-import com.codecool.mavens.controller.UserController;
-import com.codecool.mavens.model.dto.RegisterForm;
-import com.codecool.mavens.model.dto.UserLoginData;
+import com.codecool.mavens.model.dto.*;
 import com.codecool.mavens.model.entity.Location;
 import com.codecool.mavens.model.entity.PersonalInfo;
-import com.codecool.mavens.model.entity.Status;
+import com.codecool.mavens.model.types.Status;
 import com.codecool.mavens.model.entity.User;
 import com.codecool.mavens.repository.LocationRepository;
 import com.codecool.mavens.repository.PersonalInfoRepository;
@@ -15,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class UserService {
@@ -28,12 +28,20 @@ public class UserService {
     @Autowired
     LocationRepository locationRepository;
 
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<ExpertCardDto> getAll() {
+        return userRepository.findByExpertInfoNotNull().stream().map(ExpertCardDto::new).collect(Collectors.toList());
     }
 
     public User getUserByID(Long id){
         return userRepository.getById(id);
+    }
+
+    public ExpertProfileDto getExpertInfo(Long id){
+        return  new ExpertProfileDto(userRepository.getById(id));
+    }
+
+    public ExpertCardDto getExpertCard(Long id){
+        return new ExpertCardDto(userRepository.getById(id));
     }
 
     public void addNewUser(RegisterForm form){
@@ -79,7 +87,12 @@ public class UserService {
     }
 
     public List<User> getAllUsersByLocationAndProfession(Long locationId, Long professionId) {
-        return null;
+        return userRepository.findByExpertInfoNotNull().stream()
+                .filter(user -> user.getExpertInfo().getLocations().stream().anyMatch(location -> location.getId().equals(locationId)))
+                .filter(user -> user.getExpertInfo().getProfessions().stream().anyMatch(profession -> profession.getId().equals(professionId)))
+                .collect(Collectors.toList());
+
+
         /*return userRepository.findAllByLocationId(locationId, professionId);*/
     }
 }

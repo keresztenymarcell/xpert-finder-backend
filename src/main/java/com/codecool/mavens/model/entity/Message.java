@@ -1,5 +1,6 @@
 package com.codecool.mavens.model.entity;
 
+import com.codecool.mavens.model.types.Sender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 public class Message {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Sender sender;

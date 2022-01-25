@@ -1,11 +1,13 @@
 package com.codecool.mavens.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
+
+// Getter / Setter ??
 @Data
 @Builder
 @NoArgsConstructor
@@ -14,7 +16,7 @@ import java.util.Set;
 public class ExpertInfo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
@@ -30,15 +32,16 @@ public class ExpertInfo {
     @Singular("reference")
     @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
-    private Set<Reference> reference;
+    private Set<Reference> references;
+
 
     @Singular
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToMany(mappedBy = "expertInfos", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     private Set<Location> locations;
 
     @Singular
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.PERSIST})
     @EqualsAndHashCode.Exclude
     private Set<Profession> professions;
 
@@ -46,6 +49,7 @@ public class ExpertInfo {
     @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     private Set<Review> reviews;
+
 
     @Singular
     @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
