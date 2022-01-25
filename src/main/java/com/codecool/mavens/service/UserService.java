@@ -36,8 +36,8 @@ public class UserService {
         return userRepository.getById(id);
     }
 
-    public ExpertInfoDto getExpertInfo(Long id){
-        return  new ExpertInfoDto(userRepository.getById(id).getExpertInfo());
+    public ExpertProfileDto getExpertInfo(Long id){
+        return  new ExpertProfileDto(userRepository.getById(id));
     }
 
     public ExpertCardDto getExpertCard(Long id){
