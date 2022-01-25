@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Data
@@ -32,6 +33,10 @@ public class User {
     private LocalDateTime registrationTime;
 
     private LocalDateTime lastLoginTime;
+
+    @Singular
+    @OneToMany(mappedBy = "reviewer")
+    private Set<Review> reviews;
 
 /*    @OneToOne
     private Assignment expert;

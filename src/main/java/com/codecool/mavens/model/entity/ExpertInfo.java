@@ -45,10 +45,10 @@ public class ExpertInfo {
     @EqualsAndHashCode.Exclude
     private Set<Profession> professions;
 
-//    @Singular
-//    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//    @EqualsAndHashCode.Exclude
-//    private Set<Review> reviews;
+    @Singular
+    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
+    private Set<Review> reviews;
 //
 //    @Singular
 //    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

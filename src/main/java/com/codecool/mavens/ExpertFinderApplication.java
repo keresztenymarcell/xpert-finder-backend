@@ -39,6 +39,24 @@ public class ExpertFinderApplication {
 
         return args -> {
 
+            PersonalInfo personalInfoReferer = PersonalInfo.builder()
+                    .role(Role.USER)
+                    .password("123")
+                    .profilePicture("mégnincs")
+                    .status(Status.ACTIVE)
+                    .phoneNumber("12334")
+                    .name("Rewier Revy")
+                    .username("revyke")
+                    .email("revy@gmail.com")
+                    .location(Location.builder().name("Miskolc").build())
+                    .build();
+
+            User reviewer = User.builder()
+                    .personalInfo(personalInfoReferer)
+                    .registrationTime(LocalDateTime.now())
+                    .lastLoginTime(LocalDateTime.now())
+                    .build();
+
             Location location = Location.builder()
                     .name("Budapest")
                     .build();
@@ -88,6 +106,12 @@ public class ExpertFinderApplication {
                     .build();
 
 
+            Review rev1 = Review.builder()
+                    .reviewer(reviewer)
+                    .time(LocalDateTime.now())
+                    .message("He was very nice to my dog, would recommend 10/10!!!")
+                    .rating(5)
+                    .build();
 
             ExpertInfo expertInfo = ExpertInfo.builder()
                     .description("I am a professional dog-walker. Don't worry, you won't regret contacting me! ;)")
@@ -98,6 +122,7 @@ public class ExpertFinderApplication {
                     .location(location2)
                     .profession(profession2)
                     .profession(profession3)
+                    .review(rev1)
                     .build();
 
 
@@ -112,12 +137,16 @@ public class ExpertFinderApplication {
 
 
             ref1.setExpertInfo(expertInfo);
+            rev1.setExpertInfo(expertInfo);
             location.setExpertInfos(expertInfos);
             location2.setExpertInfos(expertInfos);
             profession2.setExpertInfos(expertInfos);
             profession3.setExpertInfos(expertInfos);
 
 
+
+            rev1.setReviewer(reviewer);
+            userRepository.save(reviewer);
 
             userRepository.save(user);
 
