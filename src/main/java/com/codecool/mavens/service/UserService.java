@@ -1,9 +1,6 @@
 package com.codecool.mavens.service;
 
-import com.codecool.mavens.model.dto.LocationDto;
-import com.codecool.mavens.model.dto.RegisterForm;
-import com.codecool.mavens.model.dto.UserLoginData;
-import com.codecool.mavens.model.dto.ExpertInfoDto;
+import com.codecool.mavens.model.dto.*;
 import com.codecool.mavens.model.entity.Location;
 import com.codecool.mavens.model.entity.PersonalInfo;
 import com.codecool.mavens.model.types.Status;
@@ -41,6 +38,10 @@ public class UserService {
 
     public ExpertInfoDto getExpertInfo(Long id){
         return  new ExpertInfoDto(userRepository.getById(id).getExpertInfo());
+    }
+
+    public ExpertCardDto getExpertCard(Long id){
+        return new ExpertCardDto(userRepository.getById(id));
     }
 
     public void addNewUser(RegisterForm form){

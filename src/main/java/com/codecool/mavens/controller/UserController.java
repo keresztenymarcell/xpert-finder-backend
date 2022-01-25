@@ -1,5 +1,6 @@
 package com.codecool.mavens.controller;
 
+import com.codecool.mavens.model.dto.ExpertCardDto;
 import com.codecool.mavens.model.dto.RegisterForm;
 import com.codecool.mavens.model.dto.ExpertInfoDto;
 import com.codecool.mavens.model.entity.PersonalInfo;
@@ -26,6 +27,10 @@ public class UserController {
         return  userService.getExpertInfo(id);
     }
 
+    @GetMapping("/{id}/expert-card")
+    public ExpertCardDto getExertCardById(@PathVariable Long id){
+        return userService.getExpertCard(id);
+    }
 
     @GetMapping("/trial-1")
     public String getUserByIdTrial() {

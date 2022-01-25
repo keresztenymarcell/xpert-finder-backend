@@ -40,10 +40,10 @@ public class ExpertInfo {
     @EqualsAndHashCode.Exclude
     private Set<Location> locations;
 
-//    @Singular
-//    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.PERSIST})
-//    @EqualsAndHashCode.Exclude
-//    private Set<Profession> professions;
+    @Singular
+    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.PERSIST})
+    @EqualsAndHashCode.Exclude
+    private Set<Profession> professions;
 
 //    @Singular
 //    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

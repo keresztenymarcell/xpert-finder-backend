@@ -26,6 +26,7 @@ public class User {
 
     @ToString.Exclude
     @OneToOne(cascade = CascadeType.PERSIST)
+    @EqualsAndHashCode.Exclude
     private ExpertInfo expertInfo;
 
     private LocalDateTime registrationTime;
