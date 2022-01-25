@@ -1,5 +1,6 @@
 package com.codecool.mavens.model.entity;
 
+import com.codecool.mavens.model.types.Sender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -19,9 +19,9 @@ public class Location {
     private Long id;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "location")
+    @OneToMany(mappedBy = "location")
     @ToString.Exclude
-    private PersonalInfo personalInfo;
+    private Set<PersonalInfo> personalInfos;
 
     @JsonIgnore
     @ManyToMany

@@ -29,28 +29,29 @@ public class ExpertInfo {
 
     private String description;
 
-    @Singular("reference")
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @EqualsAndHashCode.Exclude
-    private Set<Reference> reference;
+//    @Singular("reference")
+//    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    @EqualsAndHashCode.Exclude
+//    private Set<Reference> reference;
+
 
     @Singular
     @ManyToMany(mappedBy = "expertInfos", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     private Set<Location> locations;
 
-    @Singular
-    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.PERSIST})
-    @EqualsAndHashCode.Exclude
-    private Set<Profession> professions;
+//    @Singular
+//    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.PERSIST})
+//    @EqualsAndHashCode.Exclude
+//    private Set<Profession> professions;
 
-    @Singular
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @EqualsAndHashCode.Exclude
-    private Set<Review> reviews;
-
-    @Singular
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @EqualsAndHashCode.Exclude
-    private Set<Service> services;
+//    @Singular
+//    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    @EqualsAndHashCode.Exclude
+//    private Set<Review> reviews;
+//
+//    @Singular
+//    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+//    @EqualsAndHashCode.Exclude
+//    private Set<Service> services;
 }

@@ -76,8 +76,8 @@ public class ExpertFinderApplication {
             ExpertInfo expertInfo = ExpertInfo.builder()
                     .location(location)
                     .location(location2)
-                    .profession(profession2)
-                    .profession(profession3)
+//                    .profession(profession2)
+//                    .profession(profession3)
                     .build();
 
 

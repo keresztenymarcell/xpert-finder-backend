@@ -1,11 +1,10 @@
 package com.codecool.mavens.service;
 
-import com.codecool.mavens.controller.UserController;
 import com.codecool.mavens.model.dto.RegisterForm;
 import com.codecool.mavens.model.dto.UserLoginData;
 import com.codecool.mavens.model.entity.Location;
 import com.codecool.mavens.model.entity.PersonalInfo;
-import com.codecool.mavens.model.entity.Status;
+import com.codecool.mavens.model.types.Status;
 import com.codecool.mavens.model.entity.User;
 import com.codecool.mavens.repository.LocationRepository;
 import com.codecool.mavens.repository.PersonalInfoRepository;
