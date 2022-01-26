@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,7 +27,7 @@ public class UserService {
     @Autowired
     LocationRepository locationRepository;
 
-    public List<ExpertCardDto> getAll() {
+    public List<ExpertCardDto> getAllExpertCards() {
         return userRepository.findByExpertInfoNotNull().stream().map(ExpertCardDto::new).collect(Collectors.toList());
     }
 
@@ -86,13 +85,12 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<User> getAllUsersByLocationAndProfession(Long locationId, Long professionId) {
-        return userRepository.findByExpertInfoNotNull().stream()
+    public List<ExpertCardDto> getAllExpertCardsByLocationAndProfession(Long locationId, Long professionId) {
+        List<User> foundUsers = userRepository.findByExpertInfoNotNull().stream()
                 .filter(user -> user.getExpertInfo().getLocations().stream().anyMatch(location -> location.getId().equals(locationId)))
                 .filter(user -> user.getExpertInfo().getProfessions().stream().anyMatch(profession -> profession.getId().equals(professionId)))
                 .collect(Collectors.toList());
 
-
-        /*return userRepository.findAllByLocationId(locationId, professionId);*/
+        return foundUsers.stream().map(ExpertCardDto::new).collect(Collectors.toList());
     }
 }
