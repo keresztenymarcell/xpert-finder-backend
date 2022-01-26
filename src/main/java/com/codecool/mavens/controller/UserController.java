@@ -35,6 +35,21 @@ public class UserController {
         return userService.getUserByID(id);
     }
 
+    @GetMapping("/all")
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+    @PostMapping("/save-all")
+    public String saveAll(@RequestBody List<User> users){
+        for (User user : users) {
+            userService.addNewUser(user);
+        }
+        return "users added";
+    }
+
+
+
     @PostMapping("/new")
     public String addNewUser(@RequestBody User user) {
         userService.addNewUser(user);

@@ -46,4 +46,7 @@ public class User {
     private Assignment client;*/
 
 
+    public boolean isExpert(){
+        return this.getExpertInfo() != null;
+    }
 }

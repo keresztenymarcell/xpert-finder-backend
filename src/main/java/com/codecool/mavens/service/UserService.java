@@ -50,10 +50,11 @@ public class UserService {
     }
 
     private void saveUpdatedUser(User user){
-        setLocationsToUser(user);
-        setProfessionsToUser(user);
+        if(user.isExpert()){
+            setLocationsToUser(user);
+            setProfessionsToUser(user);
+        }
         userRepository.save(user);
-
     }
     private void setLocationsToUser(User user){
         Set<Location> locations = user.getExpertInfo().getLocations();
@@ -92,5 +93,9 @@ public class UserService {
                 .collect(Collectors.toList());
 
         return foundUsers.stream().map(ExpertCardDto::new).collect(Collectors.toList());
+    }
+
+    public List<User> getAllUsers() {
+       return userRepository.findAll();
     }
 }
