@@ -23,7 +23,7 @@ public class PersonalInfo {
     @EqualsAndHashCode.Exclude
     private User user;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Location location;
 
     private String username;

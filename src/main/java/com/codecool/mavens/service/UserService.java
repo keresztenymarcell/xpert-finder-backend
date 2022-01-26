@@ -1,6 +1,7 @@
 package com.codecool.mavens.service;
 
 import com.codecool.mavens.model.dto.*;
+import com.codecool.mavens.model.entity.ExpertInfo;
 import com.codecool.mavens.model.entity.Location;
 import com.codecool.mavens.model.entity.PersonalInfo;
 import com.codecool.mavens.model.types.Status;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -43,32 +45,20 @@ public class UserService {
         return new ExpertCardDto(userRepository.getById(id));
     }
 
-    public void addNewUser(RegisterForm form){
-        String username = form.getUsername();
-        String name = form.getName();
-        String password = form.getPassword();
-        String email = form.getEmailAddress();
-        String confirmPassword = form.getConfirmPassword();
-        Long locationID =  form.getLocationID();
-        String phoneNumber = form.getPhoneNumber();
+    public void addNewUser(User user){
 
-        //TODO: Validate is username doesn't exists in db and password match too
-        Location location = locationRepository.findById(locationID).orElse(null);
-
-        User user = User.builder()
-                .personalInfo(PersonalInfo.builder()
-                                .username(username)
-                                .name(name)
-                                .password(password)
-                                .email(email)
-                                .location(location)
-                                .phoneNumber(phoneNumber)
-                                .status(Status.ACTIVE)
-                                .build())
-                .registrationTime(LocalDateTime.now())
-                .build();
+        Set<Location> locations = user.getExpertInfo().getLocations();
+        for (Location item : locations) {
+            item.setExpertInfos(setExpertInfoToLocation(item, user));
+        }
 
         userRepository.save(user);
+    }
+
+    private Set<ExpertInfo> setExpertInfoToLocation(Location location, User user){
+        Set<ExpertInfo> set = locationRepository.getById(location.getId()).getExpertInfos();
+        set.add(user.getExpertInfo());
+        return set;
     }
 
     public boolean authenticateUser(UserLoginData data){

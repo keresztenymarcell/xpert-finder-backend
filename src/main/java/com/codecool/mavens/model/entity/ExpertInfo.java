@@ -36,12 +36,12 @@ public class ExpertInfo {
 
 
     @Singular
-    @ManyToMany(mappedBy = "expertInfos", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.MERGE})
     @EqualsAndHashCode.Exclude
     private Set<Location> locations;
 
     @Singular
-    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.PERSIST})
+    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.MERGE})
     @EqualsAndHashCode.Exclude
     private Set<Profession> professions;
 
