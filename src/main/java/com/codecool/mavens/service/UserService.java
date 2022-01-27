@@ -4,11 +4,9 @@ import com.codecool.mavens.model.dto.*;
 import com.codecool.mavens.model.entity.*;
 import com.codecool.mavens.model.types.Status;
 import com.codecool.mavens.repository.*;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Ref;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,6 +54,11 @@ public class UserService {
 
 
     public void updateUser(User updatedUser){
+        User user = userRepository.getById(updatedUser.getId());
+        removeLocationsFromUser(user);
+        removeProfessionsFromUser(user);
+        setProfessionsToUser(updatedUser);
+        setLocationsToUser(updatedUser);
         userRepository.save(updatedUser);
     }
 
@@ -112,6 +115,27 @@ public class UserService {
             setProfessionsToUser(user);
         }
         userRepository.save(user);
+    }
+
+    private void removeLocationsFromUser(User user){
+        Set<Location> locations = user.getExpertInfo().getLocations();
+        for (Location location : locations) {
+            Set<ExpertInfo> set = locationRepository.getById(location.getId()).getExpertInfos();
+            set.remove(user.getExpertInfo());
+            location.setExpertInfos(set);
+            locationRepository.save(location);
+        }
+    }
+
+
+    private void removeProfessionsFromUser(User user){
+        Set<Profession> professions = user.getExpertInfo().getProfessions();
+        for (Profession profession : professions) {
+            Set<ExpertInfo> set = professionRepository.getById(profession.getId()).getExpertInfos();
+            set.remove(user.getExpertInfo());
+            profession.setExpertInfos(set);
+            professionRepository.save(profession);
+        }
     }
 
 
