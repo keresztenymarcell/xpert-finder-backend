@@ -57,57 +57,9 @@ public class UserService {
         User user = userRepository.getById(updatedUser.getId());
         removeLocationsFromUser(user);
         removeProfessionsFromUser(user);
-        setProfessionsToUser(updatedUser);
-        setLocationsToUser(updatedUser);
-        userRepository.save(updatedUser);
+
+        saveUpdatedUser(updatedUser);
     }
-
-    public void updatePersonalInfo(User user, User updatedUser){
-        Long locationId = updatedUser.getPersonalInfo().getLocation().getId();
-        PersonalInfo info = user.getPersonalInfo();
-        PersonalInfo updatedInfo = updatedUser.getPersonalInfo();
-
-        info.setEmail(updatedInfo.getEmail());
-        info.setName(updatedInfo.getName());
-        info.setPassword(updatedInfo.getPassword());
-        info.setPhoneNumber(updatedInfo.getPhoneNumber());
-        info.setProfilePicture(updatedInfo.getProfilePicture());
-        info.setUsername(updatedInfo.getUsername());
-        info.setLocation(locationRepository.getById(locationId));
-
-        user.setPersonalInfo(info);
-    }
-
-    public void updateExpertInfo(User user, User updatedUser){
-        ExpertInfo info = user.getExpertInfo();
-        ExpertInfo updatedInfo = updatedUser.getExpertInfo();
-
-        //Description
-        info.setDescription(updatedInfo.getDescription());
-
-        //References
-        Set<Reference> oldReferences = info.getReferences();
-        Set<Reference> newReferences = updatedInfo.getReferences();
-        for (Reference reference : oldReferences) {
-            if(! newReferences.contains(reference)){
-                referenceRepository.delete(reference);
-            }
-        }
-        user.getExpertInfo().setReferences(newReferences);
-
-        //Services
-        Set<Service> oldServices = info.getServices();
-        Set<Service> newServices = updatedInfo.getServices();
-
-        for (Service oldService : oldServices) {
-            if(! newServices.contains(oldService)){
-                serviceRepository.delete(oldService);
-            }
-        }
-        user.getExpertInfo().setServices(newServices);
-    }
-
-
 
     private void saveUpdatedUser(User user){
         if(user.isExpert()){
@@ -126,7 +78,6 @@ public class UserService {
             locationRepository.save(location);
         }
     }
-
 
     private void removeProfessionsFromUser(User user){
         Set<Profession> professions = user.getExpertInfo().getProfessions();
