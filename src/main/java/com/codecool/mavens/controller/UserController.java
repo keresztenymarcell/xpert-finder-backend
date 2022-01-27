@@ -48,12 +48,22 @@ public class UserController {
         return "users added";
     }
 
-
+    @PostMapping("/edit")
+    public User updateUser(@RequestBody User user){
+        userService.updateUser(user);
+        return userService.getUserByID(user.getId());
+    }
 
     @PostMapping("/new")
     public String addNewUser(@RequestBody User user) {
         userService.addNewUser(user);
         return "User added!";
+    }
+
+    @PostMapping("/personal")
+    public String personalInfo(@RequestBody PersonalInfo info){
+        System.out.println(info);
+        return "";
     }
 
     @PutMapping("/{id}")

@@ -3,10 +3,7 @@ package com.codecool.mavens.service;
 import com.codecool.mavens.model.dto.*;
 import com.codecool.mavens.model.entity.*;
 import com.codecool.mavens.model.types.Status;
-import com.codecool.mavens.repository.LocationRepository;
-import com.codecool.mavens.repository.PersonalInfoRepository;
-import com.codecool.mavens.repository.ProfessionRepository;
-import com.codecool.mavens.repository.UserRepository;
+import com.codecool.mavens.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +26,12 @@ public class UserService {
     @Autowired
     ProfessionRepository professionRepository;
 
+    @Autowired
+    ReferenceRepository referenceRepository;
+
+    @Autowired
+    ServiceRepository serviceRepository;
+
     public List<ExpertCardDto> getAllExpertCards() {
         return userRepository.findByExpertInfoNotNull().stream().map(ExpertCardDto::new).collect(Collectors.toList());
     }
@@ -45,9 +48,66 @@ public class UserService {
         return new ExpertCardDto(userRepository.getById(id));
     }
 
-    public void addNewUser(User user){
+    public void addNewUser(User user) {
         saveUpdatedUser(user);
     }
+
+
+    public void updateUser(User updatedUser){
+        User user = userRepository.getById(updatedUser.getId());
+        removeLocationsFromUser(user);
+        removeProfessionsFromUser(user);
+        setProfessionsToUser(updatedUser);
+        setLocationsToUser(updatedUser);
+        userRepository.save(updatedUser);
+    }
+
+    public void updatePersonalInfo(User user, User updatedUser){
+        Long locationId = updatedUser.getPersonalInfo().getLocation().getId();
+        PersonalInfo info = user.getPersonalInfo();
+        PersonalInfo updatedInfo = updatedUser.getPersonalInfo();
+
+        info.setEmail(updatedInfo.getEmail());
+        info.setName(updatedInfo.getName());
+        info.setPassword(updatedInfo.getPassword());
+        info.setPhoneNumber(updatedInfo.getPhoneNumber());
+        info.setProfilePicture(updatedInfo.getProfilePicture());
+        info.setUsername(updatedInfo.getUsername());
+        info.setLocation(locationRepository.getById(locationId));
+
+        user.setPersonalInfo(info);
+    }
+
+    public void updateExpertInfo(User user, User updatedUser){
+        ExpertInfo info = user.getExpertInfo();
+        ExpertInfo updatedInfo = updatedUser.getExpertInfo();
+
+        //Description
+        info.setDescription(updatedInfo.getDescription());
+
+        //References
+        Set<Reference> oldReferences = info.getReferences();
+        Set<Reference> newReferences = updatedInfo.getReferences();
+        for (Reference reference : oldReferences) {
+            if(! newReferences.contains(reference)){
+                referenceRepository.delete(reference);
+            }
+        }
+        user.getExpertInfo().setReferences(newReferences);
+
+        //Services
+        Set<Service> oldServices = info.getServices();
+        Set<Service> newServices = updatedInfo.getServices();
+
+        for (Service oldService : oldServices) {
+            if(! newServices.contains(oldService)){
+                serviceRepository.delete(oldService);
+            }
+        }
+        user.getExpertInfo().setServices(newServices);
+    }
+
+
 
     private void saveUpdatedUser(User user){
         if(user.isExpert()){
@@ -56,6 +116,29 @@ public class UserService {
         }
         userRepository.save(user);
     }
+
+    private void removeLocationsFromUser(User user){
+        Set<Location> locations = user.getExpertInfo().getLocations();
+        for (Location location : locations) {
+            Set<ExpertInfo> set = locationRepository.getById(location.getId()).getExpertInfos();
+            set.remove(user.getExpertInfo());
+            location.setExpertInfos(set);
+            locationRepository.save(location);
+        }
+    }
+
+
+    private void removeProfessionsFromUser(User user){
+        Set<Profession> professions = user.getExpertInfo().getProfessions();
+        for (Profession profession : professions) {
+            Set<ExpertInfo> set = professionRepository.getById(profession.getId()).getExpertInfos();
+            set.remove(user.getExpertInfo());
+            profession.setExpertInfos(set);
+            professionRepository.save(profession);
+        }
+    }
+
+
     private void setLocationsToUser(User user){
         Set<Location> locations = user.getExpertInfo().getLocations();
         for (Location location : locations) {

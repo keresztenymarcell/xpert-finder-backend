@@ -30,7 +30,7 @@ public class ExpertInfo {
     private String description;
 
     @Singular("reference")
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @EqualsAndHashCode.Exclude
     private Set<Reference> references;
 

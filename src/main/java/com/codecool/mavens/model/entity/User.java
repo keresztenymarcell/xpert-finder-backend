@@ -22,11 +22,14 @@ public class User {
     private Long id;
 
     @ToString.Exclude
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @EqualsAndHashCode.Exclude
     private PersonalInfo personalInfo;
 
     @ToString.Exclude
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+
     @EqualsAndHashCode.Exclude
     private ExpertInfo expertInfo;
 
