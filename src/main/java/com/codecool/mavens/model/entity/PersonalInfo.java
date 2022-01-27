@@ -24,6 +24,7 @@ public class PersonalInfo {
     private User user;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
+    @EqualsAndHashCode.Exclude
     private Location location;
 
     private String username;
