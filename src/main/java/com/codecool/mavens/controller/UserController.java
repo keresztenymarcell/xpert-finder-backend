@@ -49,8 +49,9 @@ public class UserController {
     }
 
     @PostMapping("/edit")
-    public User updateUser(@RequestBody User user){
-        return null;
+    public String updateUser(@RequestBody User user){
+        userService.updateUser(user);
+        return "User Updated";
     }
 
     @PostMapping("/new")
