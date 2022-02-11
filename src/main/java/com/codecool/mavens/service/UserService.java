@@ -7,7 +7,10 @@ import com.codecool.mavens.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -66,7 +69,6 @@ public class UserService {
        return userRepository.findAll();
     }
 
-
     public void addNewUser(User user) {
         PersonalInfo personalInfo = personalInfoRepository.saveAndFlush(user.getPersonalInfo());
         Location personalLocation = locationRepository.getById(user.getPersonalInfo().getLocation().getId());
@@ -74,17 +76,53 @@ public class UserService {
         personalInfo.setLocation(personalLocation);
         personalLocation.getPersonalInfos().add(personalInfo);
 
-        ExpertInfo expertInfo = null;
+        ExpertInfo expertInfoPlaceholder = null;
         if (user.getExpertInfo() != null) {
-            // Add Expert Logic
+            ExpertInfo expertInfo = expertInfoRepository.saveAndFlush(user.getExpertInfo());
+
+            Set<Location> workLocations = getWorkLocations(user.getExpertInfo().getLocations());
+            workLocations.forEach(location -> location.getExpertInfos().add(expertInfo));
+
+            Set<Profession> professions = getProfessions(user.getExpertInfo().getProfessions());
+            professions.forEach(profession -> profession.getExpertInfos().add(expertInfo));
+
+
+            if (expertInfo.getServices() != null){
+                Set<Service> services = expertInfo.getServices();
+                services.forEach(service -> service.setExpertInfo(expertInfo));
+                serviceRepository.saveAllAndFlush(services);
+            }
+
+            if (expertInfo.getReferences() != null) {
+                Set<Reference> references = expertInfo.getReferences();
+                references.forEach(reference -> reference.setExpertInfo(expertInfo));
+                referenceRepository.saveAllAndFlush(references);
+            }
+
+            // New Users Can't Have Reviews (here for safekeeping)
+            if (expertInfo.getReviews() != null) {
+                Set<Review> reviews = expertInfo.getReviews();
+                reviews.forEach(review -> review.setExpertInfo(expertInfo));
+                reviewRepository.saveAllAndFlush(reviews);
+            }
+
+            expertInfoPlaceholder = expertInfo;
         }
 
         user.setPersonalInfo(personalInfo);
-        user.setExpertInfo(expertInfo);
+        user.setExpertInfo(expertInfoPlaceholder);
         userRepository.saveAndFlush(user);
-        personalInfoRepository.saveAndFlush(personalInfo);
-        locationRepository.saveAndFlush(personalLocation);
-
     }
 
+    private Set<Profession> getProfessions(Set<Profession> professions) {
+        Set<Profession> dbProfessions = new HashSet<>();
+        professions.forEach(profession -> dbProfessions.add(professionRepository.getById(profession.getId())));
+        return dbProfessions;
+    }
+
+    private Set<Location> getWorkLocations(Set<Location> locations) {
+        Set<Location> dbLocations = new HashSet<>();
+        locations.forEach(location -> dbLocations.add(locationRepository.getById(location.getId())));
+        return dbLocations;
+    }
 }
