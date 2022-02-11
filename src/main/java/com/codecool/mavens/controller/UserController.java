@@ -50,8 +50,7 @@ public class UserController {
 
     @PostMapping("/edit")
     public User updateUser(@RequestBody User user){
-        userService.updateUser(user);
-        return userService.getUserByID(user.getId());
+        return null;
     }
 
     @PostMapping("/new")
@@ -88,12 +87,6 @@ public class UserController {
     public List<ExpertCardDto> getAllExpertByProfessionAndLocation(@RequestParam(name = "location-id") Long locationID,
                                                           @RequestParam(name = "profession-id") Long professionID){
         return userService.getAllExpertCardsByLocationAndProfession(locationID, professionID);
-    }
-
-    @DeleteMapping("/delete/reference/{id}")
-    public String deleteReferenceById(@PathVariable("id") Long id) {
-        userService.deleteReferenceById(id);
-        return "Deleted";
     }
 
 }

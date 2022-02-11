@@ -4,34 +4,24 @@ import com.codecool.mavens.model.dto.*;
 import com.codecool.mavens.model.entity.*;
 import com.codecool.mavens.model.types.Status;
 import com.codecool.mavens.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    PersonalInfoRepository personalInfoRepository;
-
-    @Autowired
-    LocationRepository locationRepository;
-
-    @Autowired
-    ProfessionRepository professionRepository;
-
-    @Autowired
-    ReferenceRepository referenceRepository;
-
-    @Autowired
-    ServiceRepository serviceRepository;
+    private PersonalInfoRepository personalInfoRepository;
+    private ExpertInfoRepository expertInfoRepository;
+    private LocationRepository locationRepository;
+    private ProfessionRepository professionRepository;
+    private ReferenceRepository referenceRepository;
+    private ServiceRepository serviceRepository;
+    private ReviewRepository reviewRepository;
 
     public List<ExpertCardDto> getAllExpertCards() {
         return userRepository.findByExpertInfoNotNull().stream().map(ExpertCardDto::new).collect(Collectors.toList());
@@ -47,99 +37,6 @@ public class UserService {
 
     public ExpertCardDto getExpertCard(Long id){
         return new ExpertCardDto(userRepository.getById(id));
-    }
-
-    public void addNewUser(User user) {
-        saveUpdatedUser(user);
-    }
-
-
-    public void updateUser(User updatedUser){
-        // take old version of User from DB
-        User user = userRepository.getById(updatedUser.getId());
-
-        // Update PersonalInfo (ExpertInfo - Description works too)
-        user.setPersonalInfo(updatedUser.getPersonalInfo());
-        user.getExpertInfo().setDescription(updatedUser.getExpertInfo().getDescription());
-
-        // Need to save User for some reason
-        userRepository.save(user);
-        user = userRepository.getById(updatedUser.getId());
-
-        Set<Reference> oldReferences = user.getExpertInfo().getReferences();
-        Set<Reference> newReferences = updatedUser.getExpertInfo().getReferences();
-
-        Set<Reference> removableReferences = getRemovableReferences(oldReferences, newReferences);
-
-        // hookReferencesToUser(user, newReferences);
-
-        // user.getExpertInfo().setReferences(updatedUser.getExpertInfo().getReferences());
-        userRepository.save(user);
-        deleteReferences(removableReferences);
-
-    }
-
-    private void hookReferencesToUser(User user, Set<Reference> newReferences) {
-        for (Reference newReference : newReferences) {
-            if (newReference.getId() == null){
-                Reference oldReference = referenceRepository.getById(newReference.getId());
-                newReference = oldReference;
-            } else {
-
-            }
-        }
-    }
-
-    private Set<Reference> getRemovableReferences(Set<Reference> oldReferences, Set<Reference> updatedReferences) {
-
-        return oldReferences.stream().filter(reference -> !updatedReferences.contains(reference)).collect(Collectors.toSet());
-
-    }
-
-
-    private void saveUpdatedUser(User user){
-        if(user.isExpert()){
-            setLocationsToUser(user);
-            setProfessionsToUser(user);
-        }
-        userRepository.save(user);
-    }
-
-    private void removeLocationsFromUser(User user){
-        Set<Location> locations = user.getExpertInfo().getLocations();
-        for (Location location : locations) {
-            Set<ExpertInfo> set = locationRepository.getById(location.getId()).getExpertInfos();
-            set.remove(user.getExpertInfo());
-            location.setExpertInfos(set);
-            locationRepository.save(location);
-        }
-    }
-
-    private void removeProfessionsFromUser(User user){
-        Set<Profession> professions = user.getExpertInfo().getProfessions();
-        for (Profession profession : professions) {
-            Set<ExpertInfo> set = professionRepository.getById(profession.getId()).getExpertInfos();
-            set.remove(user.getExpertInfo());
-            profession.setExpertInfos(set);
-            professionRepository.save(profession);
-        }
-    }
-
-
-    private void setLocationsToUser(User user){
-        Set<Location> locations = user.getExpertInfo().getLocations();
-        for (Location location : locations) {
-            Set<ExpertInfo> set = locationRepository.getById(location.getId()).getExpertInfos();
-            set.add(user.getExpertInfo());
-        }
-    }
-
-    private void setProfessionsToUser(User user){
-        Set<Profession> professions = user.getExpertInfo().getProfessions();
-        for (Profession profession : professions) {
-            Set<ExpertInfo> set = professionRepository.getById(profession.getId()).getExpertInfos();
-            set.add(user.getExpertInfo());
-        }
     }
 
     public boolean authenticateUser(UserLoginData data){
@@ -169,18 +66,9 @@ public class UserService {
        return userRepository.findAll();
     }
 
-    public void updateLocations(User user) {
-        Set<Location> locations = user.getExpertInfo().getLocations();
+
+    public void addNewUser(User user) {
 
     }
 
-    public void deleteReferenceById(Long id) {
-        referenceRepository.deleteById(id);
-    }
-
-    public void deleteReferences(Set<Reference> references) {
-        for (Reference reference : references) {
-            referenceRepository.deleteById(reference.getId());
-        }
-    }
 }
