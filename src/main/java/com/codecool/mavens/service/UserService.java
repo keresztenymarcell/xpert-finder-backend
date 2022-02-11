@@ -26,21 +26,26 @@ public class UserService {
     private final ServiceRepository serviceRepository;
     private final ReviewRepository reviewRepository;
 
+
     public List<ExpertCardDto> getAllExpertCards() {
         return userRepository.findByExpertInfoNotNull().stream().map(ExpertCardDto::new).collect(Collectors.toList());
     }
+
 
     public User getUserByID(Long id){
         return userRepository.getById(id);
     }
 
+
     public ExpertProfileDto getExpertInfo(Long id){
         return  new ExpertProfileDto(userRepository.getById(id));
     }
 
+
     public ExpertCardDto getExpertCard(Long id){
         return new ExpertCardDto(userRepository.getById(id));
     }
+
 
     public boolean authenticateUser(UserLoginData data){
         String inputUsername = data.getUsername();
@@ -50,11 +55,13 @@ public class UserService {
         return inputPassword.equals(expectedPassword);
     }
 
+
     public void deleteUser(Long id) {
         User user = userRepository.getById(id);
         user.getPersonalInfo().setStatus(Status.INACTIVE);
         userRepository.save(user);
     }
+
 
     public List<ExpertCardDto> getAllExpertCardsByLocationAndProfession(Long locationId, Long professionId) {
         List<User> foundUsers = userRepository.findByExpertInfoNotNull().stream()
@@ -65,9 +72,11 @@ public class UserService {
         return foundUsers.stream().map(ExpertCardDto::new).collect(Collectors.toList());
     }
 
+
     public List<User> getAllUsers() {
        return userRepository.findAll();
     }
+
 
     public void addNewUser(User user) {
         PersonalInfo personalInfo = personalInfoRepository.saveAndFlush(user.getPersonalInfo());
@@ -122,19 +131,21 @@ public class UserService {
 
         if (expertInfo != null) {
             ExpertInfo oldExpertInfo = expertInfoRepository.getById(user.getExpertInfo().getId());
-            updateProfessionsAndLocations(expertInfo, oldExpertInfo);
+            updateProfessions(expertInfo, oldExpertInfo);
+            updateLocations(expertInfo, oldExpertInfo);
 
+
+            expertInfoRepository.saveAndFlush(expertInfo);
         }
 
         userRepository.saveAndFlush(user);
     }
 
-    private void updateProfessionsAndLocations(ExpertInfo expertInfo, ExpertInfo oldExpertInfo) {
+
+    private void updateProfessions(ExpertInfo expertInfo, ExpertInfo oldExpertInfo) {
 
         Set<Profession> oldProfessions = getProfessions(oldExpertInfo.getProfessions());
         Set<Profession> newProfessions = getProfessions(expertInfo.getProfessions());
-        Set<Location> oldLocations = getWorkLocations(oldExpertInfo.getLocations());
-        Set<Location> newLocations = getWorkLocations(expertInfo.getLocations());
 
         if (!oldProfessions.equals(newProfessions)) {
             Set<Profession> professionsToRemove = oldProfessions.stream().filter(profession -> !newProfessions.contains(profession)).collect(Collectors.toSet());
@@ -149,6 +160,14 @@ public class UserService {
             professionsToAdd.forEach(location -> location.getExpertInfos().add(expertInfo));
             professionRepository.saveAllAndFlush(professionsToAdd);
         }
+    }
+
+
+    private void updateLocations(ExpertInfo expertInfo, ExpertInfo oldExpertInfo) {
+
+        Set<Location> oldLocations = getWorkLocations(oldExpertInfo.getLocations());
+        Set<Location> newLocations = getWorkLocations(expertInfo.getLocations());
+
         if (!oldLocations.equals(newLocations)) {
             Set<Location> locationsToRemove = oldLocations.stream().filter(location -> !newLocations.contains(location)).collect(Collectors.toSet());
             Set<Location> locationsToAdd = newLocations.stream().filter(location -> !oldLocations.contains(location)).collect(Collectors.toSet());
@@ -162,7 +181,6 @@ public class UserService {
             locationsToAdd.forEach(location -> location.getExpertInfos().add(expertInfo));
             locationRepository.saveAllAndFlush(locationsToAdd);
         }
-        expertInfoRepository.saveAndFlush(expertInfo);
     }
 
 
@@ -171,6 +189,7 @@ public class UserService {
         professions.forEach(profession -> dbProfessions.add(professionRepository.getById(profession.getId())));
         return dbProfessions;
     }
+
 
     private Set<Location> getWorkLocations(Set<Location> locations) {
         Set<Location> dbLocations = new HashSet<>();
