@@ -23,6 +23,6 @@ public class Service {
     private String price;
 
     @JsonIgnore
-    @ManyToOne (cascade = CascadeType.MERGE)
+    @ManyToOne
     private ExpertInfo expertInfo;
 }

@@ -30,29 +30,29 @@ public class ExpertInfo {
     private String description;
 
     @Singular("reference")
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToMany(mappedBy = "expertInfo")
     @EqualsAndHashCode.Exclude
     private Set<Reference> references;
 
 
     @Singular
-    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.MERGE})
+    @ManyToMany(mappedBy = "expertInfos")
     @EqualsAndHashCode.Exclude
     private Set<Location> locations;
 
     @Singular
-    @ManyToMany(mappedBy = "expertInfos", cascade = {CascadeType.MERGE})
+    @ManyToMany(mappedBy = "expertInfos")
     @EqualsAndHashCode.Exclude
     private Set<Profession> professions;
 
     @Singular
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "expertInfo")
     @EqualsAndHashCode.Exclude
     private Set<Review> reviews;
 
 
     @Singular
-    @OneToMany(mappedBy = "expertInfo", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "expertInfo")
     @EqualsAndHashCode.Exclude
     private Set<Service> services;
 }

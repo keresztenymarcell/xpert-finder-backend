@@ -20,7 +20,7 @@ public class Category {
 
     @JsonIgnore
     @Singular
-    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "category")
     @EqualsAndHashCode.Exclude
     private Set<Profession> professions;
 
