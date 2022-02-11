@@ -14,14 +14,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
 
-    private UserRepository userRepository;
-    private PersonalInfoRepository personalInfoRepository;
-    private ExpertInfoRepository expertInfoRepository;
-    private LocationRepository locationRepository;
-    private ProfessionRepository professionRepository;
-    private ReferenceRepository referenceRepository;
-    private ServiceRepository serviceRepository;
-    private ReviewRepository reviewRepository;
+    private final UserRepository userRepository;
+    private final PersonalInfoRepository personalInfoRepository;
+    private final ExpertInfoRepository expertInfoRepository;
+    private final LocationRepository locationRepository;
+    private final ProfessionRepository professionRepository;
+    private final ReferenceRepository referenceRepository;
+    private final ServiceRepository serviceRepository;
+    private final ReviewRepository reviewRepository;
 
     public List<ExpertCardDto> getAllExpertCards() {
         return userRepository.findByExpertInfoNotNull().stream().map(ExpertCardDto::new).collect(Collectors.toList());
@@ -68,6 +68,22 @@ public class UserService {
 
 
     public void addNewUser(User user) {
+        PersonalInfo personalInfo = personalInfoRepository.saveAndFlush(user.getPersonalInfo());
+        Location personalLocation = locationRepository.getById(user.getPersonalInfo().getLocation().getId());
+
+        personalInfo.setLocation(personalLocation);
+        personalLocation.getPersonalInfos().add(personalInfo);
+
+        ExpertInfo expertInfo = null;
+        if (user.getExpertInfo() != null) {
+            // Add Expert Logic
+        }
+
+        user.setPersonalInfo(personalInfo);
+        user.setExpertInfo(expertInfo);
+        userRepository.saveAndFlush(user);
+        personalInfoRepository.saveAndFlush(personalInfo);
+        locationRepository.saveAndFlush(personalLocation);
 
     }
 
