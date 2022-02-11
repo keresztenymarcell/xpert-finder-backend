@@ -122,19 +122,19 @@ public class UserService {
 
         if (expertInfo != null) {
             ExpertInfo oldExpertInfo = expertInfoRepository.getById(user.getExpertInfo().getId());
-            updateProfessions(expertInfo, oldExpertInfo);
-            updateLocations(expertInfo, oldExpertInfo);
+            updateProfessionsAndLocations(expertInfo, oldExpertInfo);
 
-
-            //expertInfoRepository.saveAndFlush(user.getExpertInfo());
         }
+
         userRepository.saveAndFlush(user);
     }
 
-    private void updateProfessions(ExpertInfo expertInfo, ExpertInfo oldExpertInfo) {
+    private void updateProfessionsAndLocations(ExpertInfo expertInfo, ExpertInfo oldExpertInfo) {
 
         Set<Profession> oldProfessions = getProfessions(oldExpertInfo.getProfessions());
         Set<Profession> newProfessions = getProfessions(expertInfo.getProfessions());
+        Set<Location> oldLocations = getWorkLocations(oldExpertInfo.getLocations());
+        Set<Location> newLocations = getWorkLocations(expertInfo.getLocations());
 
         if (!oldProfessions.equals(newProfessions)) {
             Set<Profession> professionsToRemove = oldProfessions.stream().filter(profession -> !newProfessions.contains(profession)).collect(Collectors.toSet());
@@ -149,15 +149,6 @@ public class UserService {
             professionsToAdd.forEach(location -> location.getExpertInfos().add(expertInfo));
             professionRepository.saveAllAndFlush(professionsToAdd);
         }
-
-        expertInfoRepository.saveAndFlush(expertInfo);
-
-    }
-
-    private void updateLocations(ExpertInfo expertInfo, ExpertInfo oldExpertInfo) {
-        Set<Location> oldLocations = getWorkLocations(oldExpertInfo.getLocations());
-        Set<Location> newLocations = getWorkLocations(expertInfo.getLocations());
-
         if (!oldLocations.equals(newLocations)) {
             Set<Location> locationsToRemove = oldLocations.stream().filter(location -> !newLocations.contains(location)).collect(Collectors.toSet());
             Set<Location> locationsToAdd = newLocations.stream().filter(location -> !oldLocations.contains(location)).collect(Collectors.toSet());
@@ -173,6 +164,7 @@ public class UserService {
         }
         expertInfoRepository.saveAndFlush(expertInfo);
     }
+
 
     private Set<Profession> getProfessions(Set<Profession> professions) {
         Set<Profession> dbProfessions = new HashSet<>();
