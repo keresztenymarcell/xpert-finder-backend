@@ -90,5 +90,10 @@ public class UserController {
         return userService.getAllExpertCardsByLocationAndProfession(locationID, professionID);
     }
 
+    @DeleteMapping("/delete/reference/{id}")
+    public String deleteReferenceById(@PathVariable("id") Long id) {
+        userService.deleteReferenceById(id);
+        return "Deleted";
+    }
 
 }

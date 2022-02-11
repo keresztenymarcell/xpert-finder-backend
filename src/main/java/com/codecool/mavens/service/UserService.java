@@ -7,6 +7,7 @@ import com.codecool.mavens.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -54,12 +55,47 @@ public class UserService {
 
 
     public void updateUser(User updatedUser){
+        // take old version of User from DB
         User user = userRepository.getById(updatedUser.getId());
-        removeLocationsFromUser(user);
-        removeProfessionsFromUser(user);
 
-        saveUpdatedUser(updatedUser);
+        // Update PersonalInfo (ExpertInfo - Description works too)
+        user.setPersonalInfo(updatedUser.getPersonalInfo());
+        user.getExpertInfo().setDescription(updatedUser.getExpertInfo().getDescription());
+
+        // Need to save User for some reason
+        userRepository.save(user);
+        user = userRepository.getById(updatedUser.getId());
+
+        Set<Reference> oldReferences = user.getExpertInfo().getReferences();
+        Set<Reference> newReferences = updatedUser.getExpertInfo().getReferences();
+
+        Set<Reference> removableReferences = getRemovableReferences(oldReferences, newReferences);
+
+        // hookReferencesToUser(user, newReferences);
+
+        // user.getExpertInfo().setReferences(updatedUser.getExpertInfo().getReferences());
+        userRepository.save(user);
+        deleteReferences(removableReferences);
+
     }
+
+    private void hookReferencesToUser(User user, Set<Reference> newReferences) {
+        for (Reference newReference : newReferences) {
+            if (newReference.getId() == null){
+                Reference oldReference = referenceRepository.getById(newReference.getId());
+                newReference = oldReference;
+            } else {
+
+            }
+        }
+    }
+
+    private Set<Reference> getRemovableReferences(Set<Reference> oldReferences, Set<Reference> updatedReferences) {
+
+        return oldReferences.stream().filter(reference -> !updatedReferences.contains(reference)).collect(Collectors.toSet());
+
+    }
+
 
     private void saveUpdatedUser(User user){
         if(user.isExpert()){
@@ -131,5 +167,20 @@ public class UserService {
 
     public List<User> getAllUsers() {
        return userRepository.findAll();
+    }
+
+    public void updateLocations(User user) {
+        Set<Location> locations = user.getExpertInfo().getLocations();
+
+    }
+
+    public void deleteReferenceById(Long id) {
+        referenceRepository.deleteById(id);
+    }
+
+    public void deleteReferences(Set<Reference> references) {
+        for (Reference reference : references) {
+            referenceRepository.deleteById(reference.getId());
+        }
     }
 }

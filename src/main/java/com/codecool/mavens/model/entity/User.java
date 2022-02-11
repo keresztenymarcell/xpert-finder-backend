@@ -28,8 +28,6 @@ public class User {
 
     @ToString.Exclude
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-
-
     @EqualsAndHashCode.Exclude
     private ExpertInfo expertInfo;
 

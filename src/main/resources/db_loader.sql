@@ -103,7 +103,7 @@ INSERT INTO public.location_expert_infos VALUES (5, 2);
 --
 
 INSERT INTO public.profession VALUES (1, 'Surgeon', 1);
-INSERT INTO public.profession VALUES (2, 'Lawn Mower', 2);
+INSERT INTO public.profession VALUES (2, 'Dog Walker', 2);
 INSERT INTO public.profession VALUES (3, 'Auror', 3);
 INSERT INTO public.profession VALUES (4, 'Seeker', 3);
 
