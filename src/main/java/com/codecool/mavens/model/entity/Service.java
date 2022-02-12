@@ -24,5 +24,6 @@ public class Service {
 
     @JsonIgnore
     @ManyToOne
+    @EqualsAndHashCode.Exclude
     private ExpertInfo expertInfo;
 }

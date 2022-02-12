@@ -23,6 +23,7 @@ public class Review {
 
     @JsonIgnore
     @ManyToOne
+    @EqualsAndHashCode.Exclude
     private ExpertInfo expertInfo;
 
     private int rating;

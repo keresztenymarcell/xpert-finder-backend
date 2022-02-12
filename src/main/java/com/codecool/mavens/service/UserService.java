@@ -32,22 +32,22 @@ public class UserService {
     }
 
 
-    public User getUserByID(Long id){
+    public User getUserByID(Long id) {
         return userRepository.getById(id);
     }
 
 
-    public ExpertProfileDto getExpertInfo(Long id){
-        return  new ExpertProfileDto(userRepository.getById(id));
+    public ExpertProfileDto getExpertInfo(Long id) {
+        return new ExpertProfileDto(userRepository.getById(id));
     }
 
 
-    public ExpertCardDto getExpertCard(Long id){
+    public ExpertCardDto getExpertCard(Long id) {
         return new ExpertCardDto(userRepository.getById(id));
     }
 
 
-    public boolean authenticateUser(UserLoginData data){
+    public boolean authenticateUser(UserLoginData data) {
         String inputUsername = data.getUsername();
         String inputPassword = data.getPassword();
         String expectedPassword = personalInfoRepository.findByUsername(inputUsername).getPassword();
@@ -74,7 +74,7 @@ public class UserService {
 
 
     public List<User> getAllUsers() {
-       return userRepository.findAll();
+        return userRepository.findAll();
     }
 
 
@@ -96,7 +96,7 @@ public class UserService {
             professions.forEach(profession -> profession.getExpertInfos().add(expertInfo));
 
 
-            if (expertInfo.getServices() != null){
+            if (expertInfo.getServices() != null) {
                 Set<Service> services = expertInfo.getServices();
                 services.forEach(service -> service.setExpertInfo(expertInfo));
                 serviceRepository.saveAllAndFlush(services);
@@ -133,7 +133,7 @@ public class UserService {
             ExpertInfo oldExpertInfo = expertInfoRepository.getById(user.getExpertInfo().getId());
             updateProfessions(expertInfo, oldExpertInfo);
             updateLocations(expertInfo, oldExpertInfo);
-
+            updateServices(expertInfo, oldExpertInfo);
 
             expertInfoRepository.saveAndFlush(expertInfo);
         }
@@ -151,7 +151,7 @@ public class UserService {
             Set<Profession> professionsToRemove = oldProfessions.stream().filter(profession -> !newProfessions.contains(profession)).collect(Collectors.toSet());
             Set<Profession> professionsToAdd = newProfessions.stream().filter(profession -> !oldProfessions.contains(profession)).collect(Collectors.toSet());
 
-            for (Profession profession: professionsToRemove) {
+            for (Profession profession : professionsToRemove) {
                 Set<ExpertInfo> expertInfos = new HashSet<>(profession.getExpertInfos());
                 expertInfos.remove(oldExpertInfo);
                 profession.setExpertInfos(expertInfos);
@@ -172,7 +172,7 @@ public class UserService {
             Set<Location> locationsToRemove = oldLocations.stream().filter(location -> !newLocations.contains(location)).collect(Collectors.toSet());
             Set<Location> locationsToAdd = newLocations.stream().filter(location -> !oldLocations.contains(location)).collect(Collectors.toSet());
 
-            for (Location location: locationsToRemove) {
+            for (Location location : locationsToRemove) {
                 Set<ExpertInfo> expertInfos = new HashSet<>(location.getExpertInfos());
                 expertInfos.remove(oldExpertInfo);
                 location.setExpertInfos(expertInfos);
@@ -180,6 +180,23 @@ public class UserService {
             }
             locationsToAdd.forEach(location -> location.getExpertInfos().add(expertInfo));
             locationRepository.saveAllAndFlush(locationsToAdd);
+        }
+    }
+
+
+    private void updateServices(ExpertInfo expertInfo, ExpertInfo oldExpertInfo) {
+        Set<Service> oldServices = oldExpertInfo.getServices();
+        Set<Service> newServices = expertInfo.getServices();
+
+        if (!oldServices.equals(newServices)) {
+
+            Set<Long> newServiceIds = newServices.stream().map(Service::getId).collect(Collectors.toSet());
+
+            Set<Service> servicesToRemove = oldServices.stream().filter(service -> !newServiceIds.contains(service.getId())).collect(Collectors.toSet());
+            serviceRepository.deleteAll(servicesToRemove);
+
+            newServices.forEach(service -> service.setExpertInfo(expertInfo));
+            serviceRepository.saveAllAndFlush(newServices);
         }
     }
 

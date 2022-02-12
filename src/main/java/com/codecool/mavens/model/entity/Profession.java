@@ -2,10 +2,7 @@ package com.codecool.mavens.model.entity;
 
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -28,5 +25,6 @@ public class Profession {
 
     @JsonIgnore
     @ManyToMany
+    @EqualsAndHashCode.Exclude
     private Set<ExpertInfo> expertInfos;
 }
