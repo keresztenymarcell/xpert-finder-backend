@@ -95,7 +95,6 @@ public class UserService {
             Set<Profession> professions = getProfessions(user.getExpertInfo().getProfessions());
             professions.forEach(profession -> profession.getExpertInfos().add(expertInfo));
 
-
             if (expertInfo.getServices() != null) {
                 Set<Service> services = expertInfo.getServices();
                 services.forEach(service -> service.setExpertInfo(expertInfo));
@@ -107,17 +106,8 @@ public class UserService {
                 references.forEach(reference -> reference.setExpertInfo(expertInfo));
                 referenceRepository.saveAllAndFlush(references);
             }
-
-            // New Users Can't Have Reviews (here for safekeeping)
-            if (expertInfo.getReviews() != null) {
-                Set<Review> reviews = expertInfo.getReviews();
-                reviews.forEach(review -> review.setExpertInfo(expertInfo));
-                reviewRepository.saveAllAndFlush(reviews);
-            }
-
             expertInfoPlaceholder = expertInfo;
         }
-
         user.setPersonalInfo(personalInfo);
         user.setExpertInfo(expertInfoPlaceholder);
         userRepository.saveAndFlush(user);
@@ -134,10 +124,10 @@ public class UserService {
             updateProfessions(expertInfo, oldExpertInfo);
             updateLocations(expertInfo, oldExpertInfo);
             updateServices(expertInfo, oldExpertInfo);
+            updateReferences(expertInfo, oldExpertInfo);
 
             expertInfoRepository.saveAndFlush(expertInfo);
         }
-
         userRepository.saveAndFlush(user);
     }
 
@@ -189,7 +179,6 @@ public class UserService {
         Set<Service> newServices = expertInfo.getServices();
 
         if (!oldServices.equals(newServices)) {
-
             Set<Long> newServiceIds = newServices.stream().map(Service::getId).collect(Collectors.toSet());
 
             Set<Service> servicesToRemove = oldServices.stream().filter(service -> !newServiceIds.contains(service.getId())).collect(Collectors.toSet());
@@ -197,6 +186,22 @@ public class UserService {
 
             newServices.forEach(service -> service.setExpertInfo(expertInfo));
             serviceRepository.saveAllAndFlush(newServices);
+        }
+    }
+
+
+    private void updateReferences(ExpertInfo expertInfo, ExpertInfo oldExpertInfo) {
+        Set<Reference> oldReferences = oldExpertInfo.getReferences();
+        Set<Reference> newReferences = expertInfo.getReferences();
+
+        if(!oldReferences.equals(newReferences)) {
+            Set<Long> newReferenceIds = newReferences.stream().map(Reference::getId).collect(Collectors.toSet());
+
+            Set<Reference> referencesToRemove = oldReferences.stream().filter(reference -> !newReferenceIds.contains(reference.getId())).collect(Collectors.toSet());
+            referenceRepository.deleteAll(referencesToRemove);
+
+            newReferences.forEach(reference -> reference.setExpertInfo(expertInfo));
+            referenceRepository.saveAllAndFlush(newReferences);
         }
     }
 
