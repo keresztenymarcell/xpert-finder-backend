@@ -5,17 +5,19 @@ import com.codecool.mavens.model.entity.*;
 import com.codecool.mavens.model.types.Status;
 import com.codecool.mavens.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class UserService {
+public class UserService  implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PersonalInfoRepository personalInfoRepository;
@@ -218,5 +220,25 @@ public class UserService {
         Set<Location> dbLocations = new HashSet<>();
         locations.forEach(location -> dbLocations.add(locationRepository.getById(location.getId())));
         return dbLocations;
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+        if(user == null){
+            throw new UsernameNotFoundException("User not found in the database");
+        }
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        user.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getPersonalInfo().getUsername(),
+                user.getPersonalInfo().getPassword(),
+                authorities);
+
     }
 }

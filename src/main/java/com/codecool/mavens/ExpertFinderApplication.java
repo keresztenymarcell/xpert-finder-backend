@@ -1,18 +1,12 @@
 package com.codecool.mavens;
 
-import com.codecool.mavens.model.entity.*;
-import com.codecool.mavens.model.types.Role;
-import com.codecool.mavens.model.types.Status;
 import com.codecool.mavens.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Set;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class ExpertFinderApplication {
@@ -32,6 +26,13 @@ public class ExpertFinderApplication {
     public static void main(String[] args) {
         SpringApplication.run(ExpertFinderApplication.class, args);
     }
+
+
+    @Bean
+    BCryptPasswordEncoder BCryptPasswordEncoder (){
+        return new BCryptPasswordEncoder();
+    }
+
 
 
     @Bean
