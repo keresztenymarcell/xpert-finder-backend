@@ -1,22 +1,12 @@
 package com.codecool.mavens;
 
-import com.codecool.mavens.model.entity.*;
-import com.codecool.mavens.model.types.Role;
-import com.codecool.mavens.model.types.Status;
 import com.codecool.mavens.repository.*;
-import com.codecool.mavens.service.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class ExpertFinderApplication {
