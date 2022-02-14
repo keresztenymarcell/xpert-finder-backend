@@ -9,6 +9,8 @@ import com.codecool.mavens.model.entity.User;
 import com.codecool.mavens.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public User getUserById(@PathVariable Long id){
         return userService.getUserByID(id);
     }
@@ -49,6 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/edit")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String updateUser(@RequestBody User user){
         userService.updateUser(user);
         return "User Updated";
