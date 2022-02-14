@@ -103,7 +103,7 @@ INSERT INTO public.location_expert_infos VALUES (5, 2);
 --
 
 INSERT INTO public.profession VALUES (1, 'Surgeon', 1);
-INSERT INTO public.profession VALUES (2, 'Lawn Mower', 2);
+INSERT INTO public.profession VALUES (2, 'Dog Walker', 2);
 INSERT INTO public.profession VALUES (3, 'Auror', 3);
 INSERT INTO public.profession VALUES (4, 'Seeker', 3);
 
@@ -148,91 +148,91 @@ INSERT INTO public.service VALUES (4, 'I can seek the snitch like a pro.', 'Prof
 -- Name: assignment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.assignment_id_seq', 1, false);
+/*SELECT pg_catalog.setval('public.assignment_id_seq', 1, false);*/
 
 
 --
 -- Name: booking_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.booking_id_seq', 1, false);
+/*SELECT pg_catalog.setval('public.booking_id_seq', 1, false);*/
 
 
 --
 -- Name: category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.category_id_seq', 2, true);
+SELECT pg_catalog.setval('public.category_id_seq', 3, true);
 
 
 --
 -- Name: expert_info_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.expert_info_id_seq', 1, true);
+SELECT pg_catalog.setval('public.expert_info_id_seq', 2, true);
 
 
 --
 -- Name: location_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.location_id_seq', 3, true);
+SELECT pg_catalog.setval('public.location_id_seq', 5, true);
 
 
 --
 -- Name: message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.message_id_seq', 1, false);
+/*SELECT pg_catalog.setval('public.message_id_seq', 1, false);*/
 
 
 --
 -- Name: personal_info_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.personal_info_id_seq', 2, true);
+SELECT pg_catalog.setval('public.personal_info_id_seq', 4, true);
 
 
 --
 -- Name: profession_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.profession_id_seq', 2, true);
+SELECT pg_catalog.setval('public.profession_id_seq', 4, true);
 
 
 --
 -- Name: recommendation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.recommendation_id_seq', 1, false);
+/*SELECT pg_catalog.setval('public.recommendation_id_seq', 1, false);*/
 
 
 --
 -- Name: reference_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.reference_id_seq', 1, true);
+SELECT pg_catalog.setval('public.reference_id_seq', 2, true);
 
 
 --
 -- Name: review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.review_id_seq', 1, true);
+SELECT pg_catalog.setval('public.review_id_seq', 2, true);
 
 
 --
 -- Name: service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.service_id_seq', 2, true);
+SELECT pg_catalog.setval('public.service_id_seq', 4, true);
 
 
 --
 -- Name: user__id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --
 
-SELECT pg_catalog.setval('public.user__id_seq', 2, true);
+SELECT pg_catalog.setval('public.user__id_seq', 4, true);
 
 
 --

@@ -3,6 +3,7 @@ package com.codecool.mavens.controller;
 import com.codecool.mavens.model.dto.ExpertCardDto;
 import com.codecool.mavens.model.dto.ExpertProfileDto;
 import com.codecool.mavens.model.dto.RegisterForm;
+import com.codecool.mavens.model.entity.ExpertInfo;
 import com.codecool.mavens.model.entity.PersonalInfo;
 import com.codecool.mavens.model.entity.User;
 import com.codecool.mavens.service.UserService;
@@ -34,10 +35,35 @@ public class UserController {
         return userService.getUserByID(id);
     }
 
+    @GetMapping("/all")
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+    @PostMapping("/save-all")
+    public String saveAll(@RequestBody List<User> users){
+        for (User user : users) {
+            userService.addNewUser(user);
+        }
+        return "users added";
+    }
+
+    @PostMapping("/edit")
+    public String updateUser(@RequestBody User user){
+        userService.updateUser(user);
+        return "User Updated";
+    }
+
     @PostMapping("/new")
-    public String addNewUser(@RequestBody RegisterForm form) {
-        userService.addNewUser(form);
+    public String addNewUser(@RequestBody User user) {
+        userService.addNewUser(user);
         return "User added!";
+    }
+
+    @PostMapping("/personal")
+    public String personalInfo(@RequestBody PersonalInfo info){
+        System.out.println(info);
+        return "";
     }
 
     @PutMapping("/{id}")
@@ -63,4 +89,5 @@ public class UserController {
                                                           @RequestParam(name = "profession-id") Long professionID){
         return userService.getAllExpertCardsByLocationAndProfession(locationID, professionID);
     }
+
 }

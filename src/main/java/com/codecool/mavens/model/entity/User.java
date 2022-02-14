@@ -22,11 +22,12 @@ public class User {
     private Long id;
 
     @ToString.Exclude
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
+    @EqualsAndHashCode.Exclude
     private PersonalInfo personalInfo;
 
     @ToString.Exclude
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     @EqualsAndHashCode.Exclude
     private ExpertInfo expertInfo;
 
@@ -46,4 +47,7 @@ public class User {
     private Assignment client;*/
 
 
+    public boolean isExpert(){
+        return this.getExpertInfo() != null;
+    }
 }

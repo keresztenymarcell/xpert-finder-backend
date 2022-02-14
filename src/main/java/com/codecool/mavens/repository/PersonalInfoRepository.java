@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PersonalInfoRepository extends JpaRepository<PersonalInfo, Long> {
 
     PersonalInfo findByUsername(String username);
+
+    PersonalInfo findByUserId(Long id);
 }
