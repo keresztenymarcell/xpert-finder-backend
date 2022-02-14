@@ -1,7 +1,9 @@
-package com.codecool.mavens.service;
+package com.codecool.mavens.security;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -35,6 +37,11 @@ public class JwtUtil {
                 .withIssuer(url)
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(generateAlgorithm());
+    }
+
+    public DecodedJWT getDecodedJwt(String token){
+        JWTVerifier verifier = JWT.require(generateAlgorithm()).build();
+        return verifier.verify(token);
     }
 
 
