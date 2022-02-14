@@ -144,6 +144,21 @@ INSERT INTO public.service VALUES (3, 'Murder a Dark Wizard. Thats it.', 'Dark W
 INSERT INTO public.service VALUES (4, 'I can seek the snitch like a pro.', 'Professional Seeker', '100000 Ft / match', 2);
 
 
+INSERT INTO public.role VALUES(1, 'ROLE_USER');
+INSERT INTO public.role VALUES(2, 'ROLE_EXPERT');
+INSERT INTO public.role VALUES(3, 'ROLE_ADMIN');
+
+
+
+
+
+INSERT INTO public.user__roles VALUES(1, 1);
+INSERT INTO public.user__roles VALUES(2, 2);
+INSERT INTO public.user__roles VALUES(3, 2);
+INSERT INTO public.user__roles VALUES(4, 1);
+
+
+
 --
 -- Name: assignment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: csg
 --

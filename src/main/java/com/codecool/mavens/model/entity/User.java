@@ -6,7 +6,11 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
+
+import static javax.persistence.FetchType.EAGER;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Data
@@ -39,6 +43,10 @@ public class User {
     @OneToMany(mappedBy = "reviewer")
     @EqualsAndHashCode.Exclude
     private Set<Review> reviews;
+
+
+    @ManyToMany(fetch = EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 
 /*    @OneToOne
     private Assignment expert;
