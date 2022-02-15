@@ -80,6 +80,9 @@ public class UserService  implements UserDetailsService {
     }
 
 
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
     public void addNewUser(User user) {
         PersonalInfo personalInfo = personalInfoRepository.saveAndFlush(user.getPersonalInfo());
         Location personalLocation = locationRepository.getById(user.getPersonalInfo().getLocation().getId());

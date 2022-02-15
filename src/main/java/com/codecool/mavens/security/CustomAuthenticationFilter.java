@@ -24,6 +24,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwt;
 
+
     public CustomAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtil jwt) {
         this.authenticationManager = authenticationManager;
         this.jwt = jwt;
@@ -41,6 +42,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User) authentication.getPrincipal();
+
         String url = request.getRequestURL().toString();
 
         String accessToken = jwt.generateAccessToken(user, url);
@@ -49,6 +51,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", accessToken);
         tokens.put("refresh_token", refreshToken);
+        tokens.put("username", user.getUsername());
 
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);

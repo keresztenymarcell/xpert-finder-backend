@@ -32,11 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), new JwtUtil());
+        customAuthenticationFilter.setFilterProcessesUrl("/api/login");
+
+
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and()
-                .addFilter(new CustomAuthenticationFilter(authenticationManagerBean(), new JwtUtil()))
+                .addFilter(customAuthenticationFilter)
                 .addFilterAfter(new CustomAuthorizationFilter(new JwtUtil()), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests().antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
@@ -48,5 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return super.authenticationManagerBean();
     }
+
+
 
 }
