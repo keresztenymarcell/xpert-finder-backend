@@ -45,10 +45,10 @@ INSERT INTO public.location VALUES (5, 'Dubai');
 -- Data for Name: personal_info; Type: TABLE DATA; Schema: public; Owner: csg
 --
 
-INSERT INTO public.personal_info VALUES (1, 'revy@gmail.com', 'Rewier Revy', '$2a$10$8lECobp9VNKUPLFES4KM1ODxtMcHi.HkaazluwSxAvqoylMDNyLZW', '12334', 'mégnincs', 0, 0, 'revyke', 1);
-INSERT INTO public.personal_info VALUES (2, 'tibor.trial@gmail.com', 'Me Máté', '$2a$10$z0e.RtSxFKGLEK3g9QL7eeg9EfdH7RxKVwBTJUIMH7JuuT9j5ql4y', '222-444', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fxjmijhw09dm11.jpg&f=1&nofb=1', 0, 0, 'Mate11', 2);
-INSERT INTO public.personal_info VALUES (3, 'thechosenone@gmail.com', 'Harry Potter', '$2a$10$RflolxmrOEo3Z1PMQ193xOsVqhrqVf2A3U6kBX71LW/MY4ULjnqVy', '123-5555', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimages4.fanpop.com%2Fimage%2Fphotos%2F18200000%2FHarry-in-HP6-harry-potter-18206052-1575-2100.jpg&f=1&nofb=1', 0, 0, 'potter69', 2);
-INSERT INTO public.personal_info VALUES (4, 'random@random.com', 'Random Ramona', '$2a$10$VMiTq/Ix.lzpdsG1OIJtOumMfSKQsGh.mQrSNcJomQETCKlN8sqMK', '123-7777', NULL, 0, 0, 'ramy', 4);
+INSERT INTO public.personal_info VALUES (1, 'revy@gmail.com', 'Rewier Revy', '$2a$10$8lECobp9VNKUPLFES4KM1ODxtMcHi.HkaazluwSxAvqoylMDNyLZW', '12334', 'mégnincs', 0, 'revyke', 1);
+INSERT INTO public.personal_info VALUES (2, 'tibor.trial@gmail.com', 'Me Máté', '$2a$10$z0e.RtSxFKGLEK3g9QL7eeg9EfdH7RxKVwBTJUIMH7JuuT9j5ql4y', '222-444', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fxjmijhw09dm11.jpg&f=1&nofb=1', 0, 'Mate11', 2);
+INSERT INTO public.personal_info VALUES (3, 'thechosenone@gmail.com', 'Harry Potter', '$2a$10$RflolxmrOEo3Z1PMQ193xOsVqhrqVf2A3U6kBX71LW/MY4ULjnqVy', '123-5555', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimages4.fanpop.com%2Fimage%2Fphotos%2F18200000%2FHarry-in-HP6-harry-potter-18206052-1575-2100.jpg&f=1&nofb=1', 0, 'potter69', 2);
+INSERT INTO public.personal_info VALUES (4, 'random@random.com', 'Random Ramona', '$2a$10$VMiTq/Ix.lzpdsG1OIJtOumMfSKQsGh.mQrSNcJomQETCKlN8sqMK', '123-7777', NULL, 0, 'ramy', 4);
 
 
 --
