@@ -31,7 +31,6 @@ public class PersonalInfo {
 
     private String name;
 
-    @JsonIgnore
     private String password;
 
     private String email;
@@ -39,8 +38,6 @@ public class PersonalInfo {
     private String phoneNumber;
 
     private Status status;
-
-    private Role role;
 
     private String profilePicture;
 

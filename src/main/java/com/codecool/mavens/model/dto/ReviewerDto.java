@@ -16,6 +16,5 @@ public class ReviewerDto {
         this.username = reviewerPersonalInfo.getUsername();
         this.profilePicture = reviewerPersonalInfo.getProfilePicture();
         this.status = reviewerPersonalInfo.getStatus();
-        this.role = reviewerPersonalInfo.getRole();
     }
 }

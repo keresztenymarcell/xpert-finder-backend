@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,9 @@ public class UserService  implements UserDetailsService {
     private final ReferenceRepository referenceRepository;
     private final ServiceRepository serviceRepository;
     private final ReviewRepository reviewRepository;
+    private final RoleRepository roleRepository;
+
+    private final BCryptPasswordEncoder passwordEncoder;
 
 
     public List<ExpertCardDto> getAllExpertCards() {
@@ -83,15 +87,25 @@ public class UserService  implements UserDetailsService {
     public User findByUsername(String username){
         return userRepository.findByUsername(username);
     }
+
+
     public void addNewUser(User user) {
+        String password = user.getPersonalInfo().getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+        user.getPersonalInfo().setPassword(encodedPassword);
         PersonalInfo personalInfo = personalInfoRepository.saveAndFlush(user.getPersonalInfo());
         Location personalLocation = locationRepository.getById(user.getPersonalInfo().getLocation().getId());
 
         personalInfo.setLocation(personalLocation);
         personalLocation.getPersonalInfos().add(personalInfo);
 
+
+        user.setRoles(List.of(roleRepository.findByName("ROLE_USER")));
+
         ExpertInfo expertInfoPlaceholder = null;
         if (user.getExpertInfo() != null) {
+            user.setRoles(List.of(roleRepository.findByName("ROLE_USER"), roleRepository.findByName("ROLE_EXPERT")));
+
             ExpertInfo expertInfo = expertInfoRepository.saveAndFlush(user.getExpertInfo());
 
             Set<Location> workLocations = getWorkLocations(user.getExpertInfo().getLocations());
@@ -234,9 +248,7 @@ public class UserService  implements UserDetailsService {
         }
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        });
+        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getPersonalInfo().getUsername(),
