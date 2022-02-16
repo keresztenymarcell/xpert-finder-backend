@@ -63,9 +63,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody User user) {
-        userService.addNewUser(user);
-        return "User added!";
+    public ResponseEntity<?> registerUser(@RequestBody RegisterForm registerForm) {
+        if(userService.registerUser(registerForm)){
+            return ResponseEntity.ok("Successful Registration");
+        }else{
+            return ResponseEntity.badRequest().body("Username already in use");
+        }
+
     }
 
     @PostMapping("/personal")
