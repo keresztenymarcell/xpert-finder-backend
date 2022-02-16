@@ -89,6 +89,36 @@ public class UserService  implements UserDetailsService {
     }
 
 
+    public boolean registerUser(RegisterForm form){
+
+        //Check if username is already used
+        if(userRepository.findByUsername(form.getUsername()) != null){
+            return false;
+        } else{
+
+            PersonalInfo personalInfo = PersonalInfo.builder()
+                            .username(form.getUsername())
+                            .name(form.getName())
+                            .email(form.getEmail())
+                            .phoneNumber(form.getPhoneNumber())
+                            .password(passwordEncoder.encode(form.getPassword()))
+                            .location(locationRepository.getById(form.getLocationId()))
+                            .profilePicture(null)
+                            .build();
+
+            personalInfoRepository.saveAndFlush(personalInfo);
+
+            User newUser = User.builder()
+                    .personalInfo(personalInfo)
+                    .registrationTime(LocalDateTime.now())
+                    .roles(List.of(roleRepository.findByName("ROLE_USER")))
+                    .build();
+            userRepository.saveAndFlush(newUser);
+
+            return true;
+        }
+    }
+
     public void addNewUser(User user) {
         String password = user.getPersonalInfo().getPassword();
         String encodedPassword = passwordEncoder.encode(password);

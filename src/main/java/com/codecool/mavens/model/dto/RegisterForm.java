@@ -1,10 +1,11 @@
 package com.codecool.mavens.model.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterForm {
 
     private String email;
@@ -13,8 +14,7 @@ public class RegisterForm {
     private String emailAddress;
     private String password;
     private String confirmPassword;
-    private Long locationID;
+    private Long locationId;
     private String phoneNumber;
-
 
 }
