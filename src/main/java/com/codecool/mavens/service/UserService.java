@@ -112,6 +112,7 @@ public class UserService  implements UserDetailsService {
                             .password(passwordEncoder.encode(form.getPassword()))
                             .location(locationRepository.getById(form.getLocationId()))
                             .profilePicture(null)
+                            .status(Status.ACTIVE)
                             .build();
 
             personalInfoRepository.saveAndFlush(personalInfo);
