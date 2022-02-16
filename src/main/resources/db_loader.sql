@@ -153,7 +153,9 @@ INSERT INTO public.role VALUES(3, 'ROLE_ADMIN');
 
 
 INSERT INTO public.user__roles VALUES(1, 1);
+INSERT INTO public.user__roles VALUES(2, 1);
 INSERT INTO public.user__roles VALUES(2, 2);
+INSERT INTO public.user__roles VALUES(3, 1);
 INSERT INTO public.user__roles VALUES(3, 2);
 INSERT INTO public.user__roles VALUES(4, 1);
 
