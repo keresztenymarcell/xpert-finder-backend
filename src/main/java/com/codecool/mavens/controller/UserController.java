@@ -2,17 +2,12 @@ package com.codecool.mavens.controller;
 
 import com.codecool.mavens.model.dto.ExpertCardDto;
 import com.codecool.mavens.model.dto.ExpertProfileDto;
-import com.codecool.mavens.model.dto.RegisterForm;
-import com.codecool.mavens.model.dto.UserLoginData;
-import com.codecool.mavens.model.entity.ExpertInfo;
 import com.codecool.mavens.model.entity.PersonalInfo;
 import com.codecool.mavens.model.entity.User;
 import com.codecool.mavens.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -39,6 +34,12 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public User getUserById(@PathVariable Long id){
         return userService.getUserByID(id);
+    }
+
+    @GetMapping("/username/{username}")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public User getUserByUsername(@PathVariable String username){
+        return userService.getUserByUsername(username);
     }
 
     @GetMapping("/all")

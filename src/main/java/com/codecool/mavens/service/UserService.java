@@ -39,7 +39,15 @@ public class UserService  implements UserDetailsService {
 
 
     public User getUserByID(Long id) {
-        return userRepository.getById(id);
+        User user = userRepository.getById(id);
+        user.getPersonalInfo().setPassword("");
+        return user;
+    }
+
+    public User getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        user.getPersonalInfo().setPassword("");
+        return user;
     }
 
 
@@ -93,6 +101,7 @@ public class UserService  implements UserDetailsService {
         String password = user.getPersonalInfo().getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         user.getPersonalInfo().setPassword(encodedPassword);
+        user.getPersonalInfo().setStatus(Status.ACTIVE);
         PersonalInfo personalInfo = personalInfoRepository.saveAndFlush(user.getPersonalInfo());
         Location personalLocation = locationRepository.getById(user.getPersonalInfo().getLocation().getId());
 
