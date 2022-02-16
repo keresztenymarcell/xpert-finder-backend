@@ -144,6 +144,8 @@ public class UserService  implements UserDetailsService {
 
 
     public void updateUser(User user) {
+        String password = personalInfoRepository.getById(user.getPersonalInfo().getId()).getPassword();
+        user.getPersonalInfo().setPassword(password);
         personalInfoRepository.saveAndFlush(user.getPersonalInfo());
 
         ExpertInfo expertInfo = user.getExpertInfo();
