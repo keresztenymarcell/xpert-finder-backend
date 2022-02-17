@@ -325,4 +325,13 @@ public class UserService  implements UserDetailsService {
                 authorities);
 
     }
+
+    public ImportantInfoDto getImportantInfo(String username) {
+        User user = userRepository.findByUsername(username);
+        return ImportantInfoDto.builder()
+                .id(user.getId())
+                .isExpert(user.isExpert())
+                .username(user.getPersonalInfo().getUsername())
+                .build();
+    }
 }
