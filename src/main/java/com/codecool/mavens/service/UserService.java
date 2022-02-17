@@ -182,12 +182,16 @@ public class UserService  implements UserDetailsService {
         ExpertInfo expertInfo = user.getExpertInfo();
 
         if (expertInfo != null) {
-            ExpertInfo oldExpertInfo = expertInfoRepository.getById(user.getExpertInfo().getId());
-            updateProfessions(expertInfo, oldExpertInfo);
-            updateLocations(expertInfo, oldExpertInfo);
-            updateServices(expertInfo, oldExpertInfo);
-            updateReferences(expertInfo, oldExpertInfo);
-
+            ExpertInfo expertInfoToUpdate;
+            if (expertInfo.getId() == null) {
+                expertInfoToUpdate = expertInfoRepository.saveAndFlush(expertInfo);
+            } else {
+                expertInfoToUpdate = expertInfoRepository.getById(user.getExpertInfo().getId());
+            }
+            updateProfessions(expertInfo, expertInfoToUpdate);
+            updateLocations(expertInfo, expertInfoToUpdate);
+            updateServices(expertInfo, expertInfoToUpdate);
+            updateReferences(expertInfo, expertInfoToUpdate);
             expertInfoRepository.saveAndFlush(expertInfo);
         }
         userRepository.saveAndFlush(user);
@@ -297,5 +301,9 @@ public class UserService  implements UserDetailsService {
                 user.getPersonalInfo().getPassword(),
                 authorities);
 
+    }
+
+    public ExpertInfo generateEmptyExpertInfo() {
+        return ExpertInfo.builder().build();
     }
 }

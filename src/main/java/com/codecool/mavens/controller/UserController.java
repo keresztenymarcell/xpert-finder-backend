@@ -3,6 +3,7 @@ package com.codecool.mavens.controller;
 import com.codecool.mavens.model.dto.ExpertCardDto;
 import com.codecool.mavens.model.dto.ExpertProfileDto;
 import com.codecool.mavens.model.dto.RegisterForm;
+import com.codecool.mavens.model.entity.ExpertInfo;
 import com.codecool.mavens.model.entity.PersonalInfo;
 import com.codecool.mavens.model.entity.User;
 import com.codecool.mavens.service.UserService;
@@ -102,6 +103,11 @@ public class UserController {
     public List<ExpertCardDto> getAllExpertByProfessionAndLocation(@RequestParam(name = "location-id") Long locationID,
                                                           @RequestParam(name = "profession-id") Long professionID){
         return userService.getAllExpertCardsByLocationAndProfession(locationID, professionID);
+    }
+
+    @GetMapping("/new-expert-info")
+    public ExpertInfo getEmptyExpertInfo() {
+        return userService.generateEmptyExpertInfo();
     }
 
 }
