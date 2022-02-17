@@ -104,10 +104,4 @@ public class UserController {
                                                           @RequestParam(name = "profession-id") Long professionID){
         return userService.getAllExpertCardsByLocationAndProfession(locationID, professionID);
     }
-
-    @GetMapping("/new-expert-info")
-    public ExpertInfo getEmptyExpertInfo() {
-        return userService.generateEmptyExpertInfo();
-    }
-
 }

@@ -111,7 +111,7 @@ public class UserService  implements UserDetailsService {
                             .phoneNumber(form.getPhoneNumber())
                             .password(passwordEncoder.encode(form.getPassword()))
                             .location(locationRepository.getById(form.getLocationId()))
-                            .profilePicture(null)
+                            .profilePicture("")
                             .status(Status.ACTIVE)
                             .build();
 
@@ -184,17 +184,40 @@ public class UserService  implements UserDetailsService {
         if (expertInfo != null) {
             ExpertInfo expertInfoToUpdate;
             if (expertInfo.getId() == null) {
-                expertInfoToUpdate = expertInfoRepository.saveAndFlush(expertInfo);
+                saveNewExpertInfoToDb(expertInfo);
             } else {
                 expertInfoToUpdate = expertInfoRepository.getById(user.getExpertInfo().getId());
+                updateProfessions(expertInfo, expertInfoToUpdate);
+                updateLocations(expertInfo, expertInfoToUpdate);
+                updateServices(expertInfo, expertInfoToUpdate);
+                updateReferences(expertInfo, expertInfoToUpdate);
+                expertInfoRepository.saveAndFlush(expertInfo);
             }
-            updateProfessions(expertInfo, expertInfoToUpdate);
-            updateLocations(expertInfo, expertInfoToUpdate);
-            updateServices(expertInfo, expertInfoToUpdate);
-            updateReferences(expertInfo, expertInfoToUpdate);
-            expertInfoRepository.saveAndFlush(expertInfo);
+
         }
         userRepository.saveAndFlush(user);
+    }
+
+    private void saveNewExpertInfoToDb(ExpertInfo expertInfoWithData) {
+        ExpertInfo expertInfoWithId = expertInfoRepository.saveAndFlush(expertInfoWithData);
+
+        expertInfoWithData.getServices().forEach(service -> service.setExpertInfo(expertInfoWithId));
+        serviceRepository.saveAllAndFlush(expertInfoWithData.getServices());
+
+        expertInfoWithData.getReferences().forEach(reference -> reference.setExpertInfo(expertInfoWithId));
+        referenceRepository.saveAllAndFlush(expertInfoWithData.getReferences());
+
+        expertInfoWithData.getProfessions().forEach(profession -> {
+            Profession professionFromDB = professionRepository.getById(profession.getId());
+            professionFromDB.getExpertInfos().add(expertInfoWithId);
+            professionRepository.saveAndFlush(professionFromDB);
+        });
+
+        expertInfoWithData.getLocations().forEach(location -> {
+            Location locationFromDB = locationRepository.getById(location.getId());
+            locationFromDB.getExpertInfos().add(expertInfoWithId);
+            locationRepository.saveAndFlush(locationFromDB);
+        });
     }
 
 
@@ -301,9 +324,5 @@ public class UserService  implements UserDetailsService {
                 user.getPersonalInfo().getPassword(),
                 authorities);
 
-    }
-
-    public ExpertInfo generateEmptyExpertInfo() {
-        return ExpertInfo.builder().build();
     }
 }
