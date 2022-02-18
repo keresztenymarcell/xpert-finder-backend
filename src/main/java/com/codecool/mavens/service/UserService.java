@@ -179,7 +179,7 @@ public class UserService  implements UserDetailsService {
         user.getPersonalInfo().setPassword(password);
         personalInfoRepository.saveAndFlush(user.getPersonalInfo());
 
-        ExpertInfo expertInfo = user.getExpertInfo();
+        ExpertInfo expertInfo = removeDummyIds(user.getExpertInfo());
 
         if (expertInfo != null) {
             ExpertInfo expertInfoToUpdate;
@@ -220,6 +220,29 @@ public class UserService  implements UserDetailsService {
         });
     }
 
+    private ExpertInfo removeDummyIds(ExpertInfo expertInfo) {
+        expertInfo.setServices(removeDummyIdFromServices(expertInfo.getServices()));
+        expertInfo.setReferences(removeDummyIdFromReferences(expertInfo.getReferences()));
+        return expertInfo;
+    }
+
+    private Set<Service> removeDummyIdFromServices(Set<Service> services) {
+        services.forEach(item -> {
+            if (item.getId() < 0) {
+                item.setId(null);
+            }
+        });
+        return services;
+    }
+
+    private Set<Reference> removeDummyIdFromReferences(Set<Reference> references) {
+        references.forEach(item -> {
+            if (item.getId() < 0) {
+                item.setId(null);
+            }
+        });
+        return references;
+    }
 
     private void updateProfessions(ExpertInfo expertInfo, ExpertInfo oldExpertInfo) {
 
