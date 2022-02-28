@@ -35,7 +35,6 @@ public class ReviewService {
     public void addNewReview(NewReviewDto data){
        ExpertInfo expertInfo = expertInfoRepository.findById(data.getExpertId()).orElse(null);
        User reviewer = userRepository.findById(data.getUserId()).orElse(null);
-       SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
 
         Review review = Review.builder()
                 .expertInfo(expertInfo)
