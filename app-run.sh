@@ -1,6 +1,6 @@
 #!/bin/zsh
 mvn clean install
-docker build -f Dockerfile.dockerfile -t expert-finder .
+docker build -f Dockerfile -t expert-finder .
 
 docker run \
     -e JDBC_DATABASE_USERNAME='keresztenymarcell' \
