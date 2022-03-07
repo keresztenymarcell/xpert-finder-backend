@@ -2,4 +2,3 @@ FROM openjdk:17-alpine@sha256:a996cdcc040704ec6badaf5fecf1e144c096e00231a2918859
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 CMD "java" "-jar" "/app.jar"
-#ENTRYPOINT ["java","-jar","/app.jar"]
